@@ -1,0 +1,141 @@
+<!doctype html>
+
+
+<html ng-app="restApp" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avalon API</title>
+    <!-- load angular -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular-route.min.js"></script>
+    <!-- load application -->
+    <script type="text/javascript" src="./Scripts/lib/app.js"></script>
+    <!-- load templates -->
+    <script type="text/javascript" src="./templates/main.template.js"></script>
+    <script type="text/javascript" src="./templates/nav.template.js"></script>
+    <script type="text/javascript" src="./templates/weapon.template.js"></script>
+    <script type="text/javascript" src="./templates/horse.template.js"></script>
+    <script type="text/javascript" src="./templates/armor.template.js"></script>
+    <!-- load controllers -->
+    <script type="text/javascript" src="./Scripts/Controllers/weapon.controller.js"></script>
+    <script type="text/javascript" src="./Scripts/Controllers/horse.controller.js"></script>
+    <script type="text/javascript" src="./Scripts/Controllers/armor.controller.js"></script>
+    <!-- load services -->
+    <script type="text/javascript" src="./Scripts/lib/services.js"></script>
+    <!-- link to bootstrap 1st.  minified is for production -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <!-- links to custom styles go here -->
+    <style>
+	    body {
+		    color: #c8c8c8;
+		    background-color: #272b30;
+		}
+		.section-header {
+			color: #fff;
+		    border-radius: 6px;
+		    background-color: #0c0d0e;
+		    padding: 8px 10px 0 10px;
+		}
+		.section-header label {
+		    font-weight: bold;
+		}
+		.section-content {
+		    border-radius: 6px;
+		    border: 3px solid #0c0d0e;
+		    padding: 5px;
+		    margin-bottom: 5px;
+		}
+		.fg-line {
+		    position: relative;
+		    vertical-align: top;
+		}
+		.fg-line .form-control {
+			background-color: #272b30;
+    		padding-right: 0;
+    		padding-top: 0;
+    		padding-bottom: 0;
+    		border-radius: 0;
+    		border:0;
+			padding-left: 10px;
+    		border-bottom: 2px solid #0c0d0e;
+		    color: #c8c8c8;
+		}
+		.fg-line .form-control[disabled] {
+			background-color: #272b30;
+		}
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button"
+                class="navbar-toggle collapsed"
+                data-toggle="collapse"
+                data-target="#bs-example-navbar-collapse-1"
+                aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Brand</a>
+            </div>            
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li class="active" id="basic_nav_item">
+                        <a href="#!basic">Basic <span class="sr-only">(current)</span></a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Action</a></li>
+                            <li><a href="#">Another action</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">Separated link</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">One more separated link</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <form class="navbar-form navbar-left">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search">
+                    </div>
+                    <button type="submit" class="btn btn-default">Submit</button>
+                </form>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#">Link</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Action</a></li>
+                            <li><a href="#">Another action</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">Separated link</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+
+    <div class="container">
+        <div class="starter-template">
+            <h1>Intro</h1>
+            <p class="lead">blah blah intro blah</p> <!-- lead class will make fonts bigger and centered-->
+        </div>
+        <div class="row visible-lg visible-md"> <!-- row will only visible when screen is large or medium -->
+            IMAGE ROW
+        </div>
+        <section class="row">
+            <div ng-view></div>
+        </section>
+    </div>
+</body>
+</html>
