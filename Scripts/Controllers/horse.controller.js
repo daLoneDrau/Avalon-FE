@@ -17,7 +17,6 @@ angular.module('restApp').controller('HorseController', function($scope, $window
 	        price: 0
     };
     $scope.create = function() {
-        console.log($scope.newEntity);
         if ($scope.entities.length > 0) {
             var msg = findEntity($scope.newEntity, $scope.entities);
             if (msg.length > 0) {
@@ -33,8 +32,6 @@ angular.module('restApp').controller('HorseController', function($scope, $window
     };
     $scope.update = function() {
         var found = "";
-        console.log("UPDATE::");
-        console.log($scope.entitySelect);
         for (var i = $scope.entities.length - 1; i >= 0; i--) {
             if ($scope.entities[i].id != $scope.entitySelect.id) {
                 if ($scope.entities[i].name === $scope.entitySelect.name) {
@@ -99,8 +96,6 @@ angular.module('restApp').controller('HorseController', function($scope, $window
     var getAllEntities = function() {        
         var promise = itemService.getEntities();
         promise.then(function(response) {
-            console.log("GET HORSES::");
-            console.log(response);
             if (response.status === 200) {
                 $scope.entities = [];
                 for (var i = response.data.length - 1; i >= 0; i--) {
@@ -127,7 +122,6 @@ angular.module('restApp').controller('HorseController', function($scope, $window
                     obj = null;
                 }
             }
-            console.log($scope.entities);
         });
     };
     /**
@@ -145,8 +139,6 @@ angular.module('restApp').controller('HorseController', function($scope, $window
         });
     };
     var putEntity = function() {
-        console.log("POST::");
-        console.log($scope.entitySelect);
         var promise = itemService.updateEntity($scope.entitySelect);
             promise.then(function(response) {
             if (response.status === 200) {

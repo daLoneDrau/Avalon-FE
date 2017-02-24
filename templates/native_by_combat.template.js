@@ -37,7 +37,7 @@ angular.module('restApp').run(function($templateCache) {
         				<td ng-class="{section:$first, last:$last}">{{entity.name}}</td> \
 				        <td ng-class="{section:$first, last:$last}">{{entity.title}}</td> \
 				        <td ng-class="{section:$first, last:$last}"> \
-							<span ng-if="entity.unalerted_weight_class.code != \'N\'"> \
+							<span ng-if="entity.unalerted_attack_weight.code != \'N\'"> \
     							{{entity.unalerted_attack_weight.code}}</span> \
 							<span ng-if="entity.unalerted_attack_speed > 0">{{entity.unalerted_attack_speed}}</span> \
 					    	<span ng-repeat="n in [].constructor(entity.unalerted_attack_stars) track by $index">*</span> \

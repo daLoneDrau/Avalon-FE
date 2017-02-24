@@ -19,6 +19,19 @@ angular.module('restApp').controller('NativeController',
         }
         return is;
     };
+	$scope.isArmored = function(entity) {
+    	var is = false;
+        if (!angular.isUndefined(entity)
+        		&& !angular.isUndefined(entity.equipped_items)) {
+        	if (!angular.isUndefined(entity.equipped_items.EQUIP_SLOT_TORSO)
+        			|| !angular.isUndefined(entity.equipped_items.EQUIP_SLOT_ARMOR)
+        			|| !angular.isUndefined(entity.equipped_items.EQUIP_SLOT_HELMET)
+        			|| !angular.isUndefined(entity.equipped_items.EQUIP_SLOT_SHIELD)) {
+        		is = true;
+        	}
+        }
+        return is;
+    };
 	$scope.hasHorse = function(entity) {
     	var has = false;
         if (!angular.isUndefined(entity)
@@ -100,9 +113,6 @@ angular.module('restApp').controller('NativeController',
     var getItemEntity = function(native, slot, name) {       
         var promise = itemService.getEntityByName(name);
         promise.then(function(response) {
-            console.log("GET::"+name);
-            console.log(native);
-            console.log(response);
             if (response.status === 200) {
             	native.equipped_items[slot] = response.data[0];
             }
@@ -111,8 +121,6 @@ angular.module('restApp').controller('NativeController',
     var getAllNativesByType = function() {        
         var promise = npcService.getEntities();
         promise.then(function(response) {
-            console.log("GET::");
-            console.log(response);
             if (response.status === 200) {
                 $scope.types = [];
                 var types = {};
@@ -139,7 +147,6 @@ angular.module('restApp').controller('NativeController',
                     }
                     types[obj.title] = obj;
                 }
-                console.log(types);
                 for (var i in types) {
                 	$scope.types.push(types[i]);
                 }
@@ -149,8 +156,6 @@ angular.module('restApp').controller('NativeController',
     var getAllNatives = function() {        
         var promise = npcService.getEntities();
         promise.then(function(response) {
-            console.log("GET::");
-            console.log(response);
             if (response.status === 200) {
                 $scope.entities = [];
                 for (var i = response.data.length - 1; i >= 0; i--) {
@@ -163,6 +168,12 @@ angular.module('restApp').controller('NativeController',
                     }
                     if (angular.isUndefined(obj.id)) {
                         obj.id = 0;
+                    }
+                    if (angular.isUndefined(obj.unalerted_attack_stars)) {
+                        obj.unalerted_attack_stars = 0;
+                    }
+                    if (angular.isUndefined(obj.alerted_attack_stars)) {
+                        obj.alerted_attack_stars = 0;
                     }
                     if (!angular.isUndefined(obj.equipped_items)) {
                         if (!angular.isUndefined(obj.equipped_items.EQUIP_SLOT_WEAPON)) {

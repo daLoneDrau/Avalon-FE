@@ -36,7 +36,10 @@ angular.module('restApp').run(function($templateCache) {
 				        <td ng-class="{section:$first, last:$last}">{{entity.title}}</td> \
 				        <td ng-class="{section:$first, last:$last}">{{entity.equipped_items.EQUIP_SLOT_WEAPON.attack_method.name}}</td> \
 				        <td ng-class="{section:$first, last:$last}">{{entity.equipped_items.EQUIP_SLOT_WEAPON.weapon_length}}</td> \
-				        <td ng-class="{section:$first, last:$last}">{{entity.vulnerability.weight_class}}</td> \
+				        <td ng-class="{section:$first, last:$last}"> \
+    						{{entity.vulnerability.weight_class}} \
+    						<span ng-if="isArmored(entity)"> & Armored</span> \
+    					</td> \
 				        <td ng-class="{section:$first, last:$last}">{{entity.wage}}</td> \
         				<td ng-class="{section:$first, last:$last}">{{entity.notoriety}}</td> \
 						<td ng-class="{section:$first, last:$last}">{{entity.gold_bounty}}</td> \
