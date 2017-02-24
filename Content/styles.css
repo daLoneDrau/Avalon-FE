@@ -1,0 +1,25 @@
+body {
+    color: #c8c8c8;
+    background-color: #272b30;
+}
+.table>thead>tr>th {
+	border-top:2px solid #ddd !important;
+	border-bottom:1px solid #ddd !important;
+}
+.table>thead>tr>th.head {
+	border-top:2px solid #ddd !important;
+	border-bottom:0 !important;
+}
+.table>thead>tr>th.sub {
+	border-top:0 !important;
+	border-bottom:1px solid #ddd !important;
+}
+.table>tbody>tr>td {
+	border-top:0 !important;
+}
+.table>tbody>tr>td.section {
+	border-top:1px solid #ddd !important;
+}
+.table>tbody>tr>td.last {
+	border-bottom:2px solid #ddd !important;
+}

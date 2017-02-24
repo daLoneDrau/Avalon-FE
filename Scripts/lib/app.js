@@ -13,15 +13,25 @@ angular.module('restApp').config(function($routeProvider) {
         controller: "WeaponController",
         templateUrl: 'weapons'
     })
+    // HORSES
+    .when("/horses", {
+        controller: "HorseController",
+        templateUrl: 'horses'
+    })
     // ARMOR
     .when("/armor", {
         controller: "ArmorController",
         templateUrl: 'armor'
     })
-    // HORSES
-    .when("/horses", {
-        controller: "HorseController",
-        templateUrl: 'horses'
+    // NATIVES
+    .when("/nativesbytype", {
+        controller: "NativeController",
+        templateUrl: 'nativesByType'
+    })
+    // NATIVES IN COMBAT
+    .when("/nativesbycombat", {
+        controller: "NativeController",
+        templateUrl: 'nativesByCombat'
     });                                 
 });
 

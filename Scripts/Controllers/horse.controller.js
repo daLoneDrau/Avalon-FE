@@ -57,6 +57,27 @@ angular.module('restApp').controller('HorseController', function($scope, $window
             putEntity();
         }
     };
+    $scope.ponyFilter = function(item) {
+    	var is = false;
+        if (item.horse_type.name === "Pony") {
+            is = true;
+        }
+        return is;
+    };
+    $scope.workhorseFilter = function(item) {
+    	var is = false;
+        if (item.horse_type.name === "Workhorse") {
+            is = true;
+        }
+        return is;
+    };
+    $scope.warhorseFilter = function(item) {
+    	var is = false;
+        if (item.horse_type.name === "Warhorse") {
+            is = true;
+        }
+        return is;
+    };
     var findEntity = function(entity, entities) {
         var found = '';
         for (var i = entities.length - 1; i >= 0; i--) {
@@ -78,13 +99,16 @@ angular.module('restApp').controller('HorseController', function($scope, $window
     var getAllEntities = function() {        
         var promise = itemService.getEntities();
         promise.then(function(response) {
-            console.log("GET::");
+            console.log("GET HORSES::");
             console.log(response);
             if (response.status === 200) {
                 $scope.entities = [];
                 for (var i = response.data.length - 1; i >= 0; i--) {
-                	var obj = response.data[i]
+                	var obj = response.data[i];
                     if (angular.isUndefined(obj.horse_type)) {
+                        continue;
+                    }
+                    if (angular.isUndefined(obj.price)) { // only show horses for sale
                         continue;
                     }
                     if (angular.isUndefined(obj.id)) {
@@ -103,6 +127,7 @@ angular.module('restApp').controller('HorseController', function($scope, $window
                     obj = null;
                 }
             }
+            console.log($scope.entities);
         });
     };
     /**

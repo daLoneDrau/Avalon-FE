@@ -57,6 +57,20 @@ angular.module('restApp').controller('ArmorController', function($scope, $window
             putEntity();
         }
     };
+    $scope.nonmagicFilter = function(item) {
+    	var is = false;
+        if (angular.isUndefined(item.groups)) {
+            is = true;
+        }
+        return is;
+    };
+    $scope.magicFilter = function(item) {
+    	var is = false;
+        if (!angular.isUndefined(item.groups)) {
+            is = true;
+        }
+        return is;
+    };
     var findEntity = function(entity, entities) {
         var found = '';
         for (var i = entities.length - 1; i >= 0; i--) {

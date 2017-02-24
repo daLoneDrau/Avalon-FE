@@ -57,6 +57,28 @@ angular.module('restApp').controller('WeaponController', function($scope, $windo
             putEntity();
         }
     };
+    $scope.missileFilter = function(item) {
+    	var is = false;
+        if (item.attack_method.name === "Missile") {
+            is = true;
+        }
+        return is;
+    };
+    $scope.meleeFilter = function(item) {
+    	var is = false;
+        if (item.attack_method.name === "Striking"
+        		&& angular.isUndefined(item.groups)) {
+            is = true;
+        }
+        return is;
+    };
+    $scope.magicFilter = function(item) {
+    	var is = false;
+        if (!angular.isUndefined(item.groups)) {
+            is = true;
+        }
+        return is;
+    };
     var findEntity = function(entity, entities) {
         var found = '';
         for (var i = entities.length - 1; i >= 0; i--) {
