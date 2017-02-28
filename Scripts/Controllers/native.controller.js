@@ -12,6 +12,13 @@ angular.module('restApp').controller('NativeController',
 		}
 		return is;
 	}
+	function checkFlier(group) {
+		var is = false;
+		if (group.name === "FLYING") {
+			is = true;
+		}
+		return is;
+	}
 	$scope.nativeFilter = function(npc) {
     	var is = false;
         if (!angular.isUndefined(npc.groups)) {
@@ -23,12 +30,22 @@ angular.module('restApp').controller('NativeController',
     	var is = false;
         if (!angular.isUndefined(entity)
         		&& !angular.isUndefined(entity.equipped_items)) {
+    		console.log(entity.name);
+    		console.log(entity.equipped_items);
         	if (!angular.isUndefined(entity.equipped_items.EQUIP_SLOT_TORSO)
         			|| !angular.isUndefined(entity.equipped_items.EQUIP_SLOT_ARMOR)
         			|| !angular.isUndefined(entity.equipped_items.EQUIP_SLOT_HELMET)
         			|| !angular.isUndefined(entity.equipped_items.EQUIP_SLOT_SHIELD)) {
         		is = true;
         	}
+        }
+        return is;
+    };
+	$scope.isFlier = function(entity) {
+    	var is = false;
+        if (!angular.isUndefined(entity)
+        		&& !angular.isUndefined(entity.groups)) {
+        	is = entity.groups.some(checkFlier);
         }
         return is;
     };
@@ -110,6 +127,28 @@ angular.module('restApp').controller('NativeController',
         }
         return t;
     };
+	$scope.getWeaponLength = function(entity) {
+    	var t = 0;
+        if (!angular.isUndefined(entity)) {
+            if (!angular.isUndefined(entity.natural_weapon_length)) {
+            	t = entity.natural_weapon_length;
+            } else if (!angular.isUndefined(entity.equipped_items.EQUIP_SLOT_WEAPON)) {
+            	t = entity.equipped_items.EQUIP_SLOT_WEAPON.weapon_length;
+            }
+        }
+        return t;
+    };
+	$scope.getWeaponType = function(entity) {
+    	var t = "";
+        if (!angular.isUndefined(entity)) {
+            if (!angular.isUndefined(entity.natural_weapon_type)) {
+            	t = entity.natural_weapon_type.name;
+            } else if (!angular.isUndefined(entity.equipped_items.EQUIP_SLOT_WEAPON)) {
+            	t = entity.equipped_items.EQUIP_SLOT_WEAPON.attack_method.name;
+            }
+        }
+        return t;
+    };
     var getItemEntity = function(native, slot, name) {       
         var promise = itemService.getEntityByName(name);
         promise.then(function(response) {
@@ -187,6 +226,44 @@ angular.module('restApp').controller('NativeController',
             }
         });
     };
+    var getAllMonsters = function() {        
+        var promise = npcService.getEntities();
+        promise.then(function(response) {
+            if (response.status === 200) {
+                $scope.monsters = [];
+                for (var i = response.data.length - 1; i >= 0; i--) {
+                	var obj = response.data[i];
+                    if (angular.isUndefined(obj.groups)) {
+                         continue;
+                    }
+                    if (obj.groups.some(checkNative)) {
+                    	continue;
+                    }
+                    if (angular.isUndefined(obj.id)) {
+                        obj.id = 0;
+                    }
+                    if (angular.isUndefined(obj.natural_weapon_length)) {
+                        obj.natural_weapon_length = 0;
+                    }
+                    if (angular.isUndefined(obj.unalerted_attack_stars)) {
+                        obj.unalerted_attack_stars = 0;
+                    }
+                    if (angular.isUndefined(obj.alerted_attack_stars)) {
+                        obj.alerted_attack_stars = 0;
+                    }
+                    if (!angular.isUndefined(obj.equipped_items)) {
+                        if (!angular.isUndefined(obj.equipped_items.EQUIP_SLOT_WEAPON)) {
+                        	obj.equipped_items.EQUIP_SLOT_WEAPON =
+                        		getItemEntity(obj, "EQUIP_SLOT_WEAPON",
+                        				obj.equipped_items.EQUIP_SLOT_WEAPON);
+                        }
+                    }
+                	$scope.monsters.push(obj);
+                }
+            }
+        });
+    };
     getAllNativesByType();
     getAllNatives();
+    getAllMonsters();
 });
