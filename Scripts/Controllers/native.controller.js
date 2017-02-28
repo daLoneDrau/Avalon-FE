@@ -30,8 +30,6 @@ angular.module('restApp').controller('NativeController',
     	var is = false;
         if (!angular.isUndefined(entity)
         		&& !angular.isUndefined(entity.equipped_items)) {
-    		console.log(entity.name);
-    		console.log(entity.equipped_items);
         	if (!angular.isUndefined(entity.equipped_items.EQUIP_SLOT_TORSO)
         			|| !angular.isUndefined(entity.equipped_items.EQUIP_SLOT_ARMOR)
         			|| !angular.isUndefined(entity.equipped_items.EQUIP_SLOT_HELMET)
@@ -132,7 +130,8 @@ angular.module('restApp').controller('NativeController',
         if (!angular.isUndefined(entity)) {
             if (!angular.isUndefined(entity.natural_weapon_length)) {
             	t = entity.natural_weapon_length;
-            } else if (!angular.isUndefined(entity.equipped_items.EQUIP_SLOT_WEAPON)) {
+            } else if (!angular.isUndefined(entity.equipped_items)
+            		&& !angular.isUndefined(entity.equipped_items.EQUIP_SLOT_WEAPON)) {
             	t = entity.equipped_items.EQUIP_SLOT_WEAPON.weapon_length;
             }
         }
@@ -143,7 +142,8 @@ angular.module('restApp').controller('NativeController',
         if (!angular.isUndefined(entity)) {
             if (!angular.isUndefined(entity.natural_weapon_type)) {
             	t = entity.natural_weapon_type.name;
-            } else if (!angular.isUndefined(entity.equipped_items.EQUIP_SLOT_WEAPON)) {
+            } else if (!angular.isUndefined(entity.equipped_items)
+            		&& !angular.isUndefined(entity.equipped_items.EQUIP_SLOT_WEAPON)) {
             	t = entity.equipped_items.EQUIP_SLOT_WEAPON.attack_method.name;
             }
         }
@@ -233,23 +233,21 @@ angular.module('restApp').controller('NativeController',
                 $scope.monsters = [];
                 for (var i = response.data.length - 1; i >= 0; i--) {
                 	var obj = response.data[i];
-                    if (angular.isUndefined(obj.groups)) {
-                         continue;
-                    }
-                    if (obj.groups.some(checkNative)) {
+                    if (!angular.isUndefined(obj.groups)
+                    		&& obj.groups.some(checkNative)) {
                     	continue;
                     }
                     if (angular.isUndefined(obj.id)) {
                         obj.id = 0;
-                    }
-                    if (angular.isUndefined(obj.natural_weapon_length)) {
-                        obj.natural_weapon_length = 0;
                     }
                     if (angular.isUndefined(obj.unalerted_attack_stars)) {
                         obj.unalerted_attack_stars = 0;
                     }
                     if (angular.isUndefined(obj.alerted_attack_stars)) {
                         obj.alerted_attack_stars = 0;
+                    }
+                    if (angular.isUndefined(obj.fame_bounty)) {
+                        obj.fame_bounty = 0;
                     }
                     if (!angular.isUndefined(obj.equipped_items)) {
                         if (!angular.isUndefined(obj.equipped_items.EQUIP_SLOT_WEAPON)) {
