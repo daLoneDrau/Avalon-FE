@@ -13,6 +13,7 @@ angular.module('restApp').run(function($templateCache) {
         <li class="nav-item"><a class="nav-link active" href="#!armor">Table I.3: List of Armor</a></li> \
         <li class="nav-item"><a class="nav-link active" href="#!nativesbytype">Table I.4: List of Natives</a></li> \
         <li class="nav-item"><a class="nav-link active" href="#!nativesbycombat">Table I.5: Native Combat Statistics</a></li> \
+        <li class="nav-item"><a class="nav-link active" href="#!monsters">Table I.6: List of Monsters</a></li> \
     </ul> \
 </div> \
 <!-- this menu will only be visible when screen is medium or small. extra small has no menu. --> \
@@ -24,6 +25,7 @@ angular.module('restApp').run(function($templateCache) {
         <li class="nav-item"><a class="nav-link active" href="#!armor">Armor</a></li> \
         <li class="nav-item"><a class="nav-link active" href="#!natives">Natives</a></li> \
         <li class="nav-item"><a class="nav-link active" href="#!nativesbycombat">Natives In Combat</a></li> \
+        <li class="nav-item"><a class="nav-link active" href="#!monsters">Natives In Combat</a></li> \
     </ol> \
 </div> \
     ';

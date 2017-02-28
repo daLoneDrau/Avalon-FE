@@ -32,6 +32,11 @@ angular.module('restApp').config(function($routeProvider) {
     .when("/nativesbycombat", {
         controller: "NativeController",
         templateUrl: 'nativesByCombat'
+    })
+    // MONSTERS
+    .when("/monsters", {
+        controller: "NativeController",
+        templateUrl: 'monsters'
     });                                 
 });
 
