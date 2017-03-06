@@ -23,3 +23,29 @@ body {
 .table>tbody>tr>td.last {
 	border-bottom:2px solid #ddd !important;
 }
+.smaller {
+    font-size: 85%;
+}
+.smallest {
+    font-size: 75%;
+}
+.box {
+	float: left;
+	width: 60px;
+	height: 60px;
+	color: #555;
+    opacity: 1;
+    margin: 2px;
+}
+.move {
+	background-color: #eee;
+}
+.fight {
+	background-color: #c8c8c8;
+}
+.pill {
+	background-color: #bbb;
+	border: 1px solid #a8a8a8;
+	border-radius: 4px;
+	padding: 1px 2px;
+}

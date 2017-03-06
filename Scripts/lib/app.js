@@ -8,6 +8,11 @@ angular.module('restApp').config(function($routeProvider) {
     $routeProvider.when("/", {
         templateUrl: 'main'
     })
+    // CHARACTERS
+    .when("/characters", {
+        controller: "CharacterController",
+        templateUrl: 'characters'
+    })
     // WEAPONS
     .when("/weapons", {
         controller: "WeaponController",

@@ -540,3 +540,34 @@ angular.module('restApp').factory('npcService', function($http, $q) {
     };
     return dataFactory;
 });
+
+angular.module('restApp').factory('characterService', function($http, $q) {
+    var urlBase = [ httpBasicBase, 'io_pc_data' ].join("");
+    var dataFactory = {};
+
+    dataFactory.getEntities = function () {
+        var defer = $q.defer();
+        defer.resolve($http.get(urlBase));
+        return defer.promise;
+    };
+    dataFactory.getEntity = function (id) {
+        return $http.get(urlBase + '/' + id);
+    };
+    dataFactory.getEntityByName = function (name) {
+        return $http.get(urlBase + '/name/' + name);
+    };
+    dataFactory.insertEntity = function (entity) {
+        var defer = $q.defer();
+        defer.resolve($http.post(urlBase, entity));
+        return defer.promise;
+    };
+    dataFactory.updateEntity = function (entity) {
+        var defer = $q.defer();
+        defer.resolve($http.put(urlBase, entity));
+        return defer.promise;
+    };
+    dataFactory.deleteEntity = function (id) {
+        return $http.delete(urlBase + '/' + id);
+    };
+    return dataFactory;
+});

@@ -8,6 +8,7 @@ angular.module('restApp').run(function($templateCache) {
 <div class="col-md-2 col-md-offset-1 visible-lg"> \
     <h2>Menu Item</h2> \
     <ul class="nav"> \
+        <li class="nav-item"><a class="nav-link active" href="#!characters">Characters</a></li> \
         <li class="nav-item"><a class="nav-link active" href="#!weapons">Table I.1: List of Weapons</a></li> \
         <li class="nav-item"><a class="nav-link active" href="#!horses">Table I.2: List of Horses</a></li> \
         <li class="nav-item"><a class="nav-link active" href="#!armor">Table I.3: List of Armor</a></li> \
@@ -20,6 +21,7 @@ angular.module('restApp').run(function($templateCache) {
 <div class="col-xs-2 col-xs-offset-1 visible-md visible-sm"> \
     <h3>Short Menu</h3> \
     <ol> \
+        <li class="nav-item"><a class="nav-link active" href="#!characters">Characters</a></li> \
         <li class="nav-item"><a class="nav-link active" href="#!weapons">Weapons</a></li> \
         <li class="nav-item"><a class="nav-link active" href="#!horses">Horses</a></li> \
         <li class="nav-item"><a class="nav-link active" href="#!armor">Armor</a></li> \
