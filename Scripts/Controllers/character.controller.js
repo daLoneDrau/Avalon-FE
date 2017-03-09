@@ -83,38 +83,62 @@ angular.module('restApp').controller('CharacterController',
                     		})(entity, slot);
                     	}
                     }
+                    var r = [];
                     for (var j = entity.stage_one_actions.length - 1; j >= 0; j--) {
-                        if (!angular.isUndefined(entity.stage_one_actions[j].fatigue_asterisk)) {
-                        	entity.stage_one_actions[j].fatigue = [];
-                        	for (var k = entity.stage_one_actions[j].fatigue_asterisk - 1; k >= 0; k--) {
-                        		entity.stage_one_actions[j].fatigue.push(k);
+                    	var o = entity.stage_one_actions[j].action;
+                        if (!angular.isUndefined(o.fatigue_asterisk)) {
+                        	o.fatigue = [];
+                        	for (var k = o.fatigue_asterisk - 1; k >= 0; k--) {
+                        		o.fatigue.push(k);
                         	}                	
                         }
+                        for (var k = entity.stage_one_actions[j].quantity - 1; k >= 0; k--) {
+                        	r.push(o);
+                        }
                     }
+                    entity.stage_one_actions = r;
+                    r = [];
                     for (var j = entity.stage_two_actions.length - 1; j >= 0; j--) {
-                        if (!angular.isUndefined(entity.stage_two_actions[j].fatigue_asterisk)) {
-                        	entity.stage_two_actions[j].fatigue = [];
-                        	for (var k = entity.stage_two_actions[j].fatigue_asterisk - 1; k >= 0; k--) {
-                        		entity.stage_two_actions[j].fatigue.push(k);
+                    	var o = entity.stage_two_actions[j].action;
+                        if (!angular.isUndefined(o.fatigue_asterisk)) {
+                        	o.fatigue = [];
+                        	for (var k = o.fatigue_asterisk - 1; k >= 0; k--) {
+                        		o.fatigue.push(k);
                         	}                	
                         }
+                        for (var k = entity.stage_two_actions[j].quantity - 1; k >= 0; k--) {
+                        	r.push(o);
+                        }
                     }
+                    entity.stage_two_actions = r;
+                    r = [];
                     for (var j = entity.stage_three_actions.length - 1; j >= 0; j--) {
-                        if (!angular.isUndefined(entity.stage_three_actions[j].fatigue_asterisk)) {
-                        	entity.stage_three_actions[j].fatigue = [];
-                        	for (var k = entity.stage_three_actions[j].fatigue_asterisk - 1; k >= 0; k--) {
-                        		entity.stage_three_actions[j].fatigue.push(k);
+                    	var o = entity.stage_three_actions[j].action;
+                        if (!angular.isUndefined(o.fatigue_asterisk)) {
+                        	o.fatigue = [];
+                        	for (var k = o.fatigue_asterisk - 1; k >= 0; k--) {
+                        		o.fatigue.push(k);
                         	}                	
                         }
+                        for (var k = entity.stage_three_actions[j].quantity - 1; k >= 0; k--) {
+                        	r.push(o);
+                        }
                     }
+                    entity.stage_three_actions = r;
+                    r = [];
                     for (var j = entity.stage_four_actions.length - 1; j >= 0; j--) {
-                        if (!angular.isUndefined(entity.stage_four_actions[j].fatigue_asterisk)) {
-                        	entity.stage_four_actions[j].fatigue = [];
-                        	for (var k = entity.stage_four_actions[j].fatigue_asterisk - 1; k >= 0; k--) {
-                        		entity.stage_four_actions[j].fatigue.push(k);
+                    	var o = entity.stage_four_actions[j].action;
+                        if (!angular.isUndefined(o.fatigue_asterisk)) {
+                        	o.fatigue = [];
+                        	for (var k = o.fatigue_asterisk - 1; k >= 0; k--) {
+                        		o.fatigue.push(k);
                         	}                	
                         }
+                        for (var k = entity.stage_four_actions[j].quantity - 1; k >= 0; k--) {
+                        	r.push(o);
+                        }
                     }
+                    entity.stage_four_actions = r;
                 	$scope.entities.push(entity);
                 	entity = null;
                 }

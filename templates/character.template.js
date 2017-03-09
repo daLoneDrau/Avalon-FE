@@ -38,15 +38,17 @@ angular.module('restApp').run(function($templateCache) {
 					<strong>{{entitySelect.advantage_two.name}}:</strong> {{entitySelect.advantage_two.description}} \
 				</div> \
 				<div class="col-sm-12" ng-if="entitySelect!=null"><strong>Trading Relationship:</strong></div> \
+				<div class="col-sm-12" ng-if="entitySelect.ally!=null">Ally: <span ng-repeat="group in entitySelect.ally"><span ng-if="!$first">, </span>{{group.name}}</span></div> \
     			<div class="col-sm-12" ng-if="entitySelect.friendly!=null">Friendly: <span ng-repeat="group in entitySelect.friendly"><span ng-if="!$first">, </span>{{group.name}}</span></div> \
-				<div class="col-sm-12" ng-if="entitySelect.friendly!=null">Unfriendly: <span ng-repeat="group in entitySelect.unfriendly"><span ng-if="!$first">, </span>{{group.name}}</span></div> \
+				<div class="col-sm-12" ng-if="entitySelect.unfriendly!=null">Unfriendly: <span ng-repeat="group in entitySelect.unfriendly"><span ng-if="!$first">, </span>{{group.name}}</span></div> \
+				<div class="col-sm-12" ng-if="entitySelect.enemy!=null">Enemy: <span ng-repeat="group in entitySelect.enemy"><span ng-if="!$first">, </span>{{group.name}}</span></div> \
     		</div> \
 			<div class="col-sm-6"> \
 				<div class="col-sm-12" ng-if="entitySelect!=null"> \
 					<em>{{entitySelect.evaluation}}</em> \
 				</div> \
     			<div class="col-sm-12" ng-if="entitySelect!=null"> \
-    				<strong>Starting Location:</strong> {{entitySelect.starting_location}} \
+    				<strong>Starting Location:</strong> <span ng-repeat="loc in entitySelect.starting_location"><span ng-if="!$first">, </span>{{loc}}</span> \
     			</div> \
 				<div class="col-sm-12" ng-if="entitySelect!=null" style="margin-bottom: 10px;"> \
 					<strong>Development/Combat Chits:</strong> \
@@ -68,7 +70,7 @@ angular.module('restApp').run(function($templateCache) {
 					<div class="col-sm-3"">{{entitySelect.stage_two_name}}</div> \
 					<div class="box text-center" \
 							ng-class="{move: action.type.name==\'MOVE\', fight: action.type.name==\'FIGHT\' || action.type.name==\'BERSERK\' || action.type.name==\'DUCK\'}" \
-							ng-repeat="action in entitySelect.stage_two_actions"> \
+							ng-repeat="action in entitySelect.stage_two_actions track by $index"> <!-- track by index to avoid duplicate keys error --> \
 						<span class="smallest">{{action.type.name}}</span><br> \
 						<span class="pill">{{action.strength.code}}{{action.speed}}</span><br> \
 						<span ng-repeat="star in action.fatigue" class="glyphicon glyphicon-asterisk"> </span> \
@@ -81,7 +83,7 @@ angular.module('restApp').run(function($templateCache) {
 					<div class="col-sm-3"">{{entitySelect.stage_three_name}}</div> \
 					<div class="box text-center" \
 							ng-class="{move: action.type.name==\'MOVE\', fight: action.type.name==\'FIGHT\' || action.type.name==\'BERSERK\' || action.type.name==\'DUCK\'}" \
-							ng-repeat="action in entitySelect.stage_three_actions"> \
+							ng-repeat="action in entitySelect.stage_three_actions track by $index"> \
 						<span class="smallest">{{action.type.name}}</span><br> \
 						<span class="pill">{{action.strength.code}}{{action.speed}}</span><br> \
 						<span ng-repeat="star in action.fatigue" class="glyphicon glyphicon-asterisk"> </span> \
