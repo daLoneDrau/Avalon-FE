@@ -37,6 +37,9 @@ body {
     opacity: 1;
     margin: 2px;
 }
+.magic {
+	background-color: #fff;
+}
 .move {
 	background-color: #eee;
 }
@@ -48,4 +51,7 @@ body {
 	border: 1px solid #a8a8a8;
 	border-radius: 4px;
 	padding: 1px 2px;
+}
+.charicon {
+	font-size: 16em;
 }

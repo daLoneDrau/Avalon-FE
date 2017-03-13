@@ -30,7 +30,7 @@ angular.module('restApp').controller('CharacterController',
         promise.then(function(response) {
             if (response.status === 200) {
                 $scope.entities = [];
-                for (var i = response.data.length - 1; i >= 0; i--) {
+                for (var i = 0, len = response.data.length; i < len; i++) {
                 	var entity = response.data[i];
                     if (angular.isUndefined(entity.id)) {
                     	entity.id = 0;
@@ -139,6 +139,19 @@ angular.module('restApp').controller('CharacterController',
                         }
                     }
                     entity.stage_four_actions = r;
+                    if (angular.isUndefined(entity.stage_one_spells)) {
+                    	entity.stage_one_spells = 0;
+                    }
+                    if (angular.isUndefined(entity.stage_two_spells)) {
+                    	entity.stage_two_spells = 0;
+                    }
+                    if (angular.isUndefined(entity.stage_three_spells)) {
+                    	entity.stage_three_spells = 0;
+                    }
+                    if (angular.isUndefined(entity.stage_four_spells)) {
+                    	entity.stage_four_spells = 0;
+                    }
+                    console.log(entity);
                 	$scope.entities.push(entity);
                 	entity = null;
                 }

@@ -24,9 +24,13 @@ angular.module('restApp').run(function($templateCache) {
 		    <!-- -------------------- --> \
     		<div class="col-sm-4">&nbsp;</div> \
 			<div class="col-sm-4"> \
-				<h3 style="float:left;margin-right:5px;padding-top:6px;" ng-if="entitySelect!=null"><em>The</em></h3><h2 style="float:left;">{{entitySelect.name}}</h2> \
+				<h3 style="float:left;margin-right:5px;padding-top:6px;" ng-if="entitySelect!=null"><em>The</em></h3> \
+    			<h2 style="float:left;">{{entitySelect.name}}</h2> \
 			</div> \
 			<div class="col-sm-6"> \
+				<div class="col-sm-12 text-center"> \
+					<span class="{{entitySelect.glyph}} charicon"></span> \
+				</div> \
 				<div class="col-sm-12" ng-if="entitySelect!=null"> \
 					<strong>Weight/Vulnerability:</strong> {{entitySelect.vulnerability.harm_name}} \
 				</div> \
@@ -56,53 +60,65 @@ angular.module('restApp').run(function($templateCache) {
 				<div class="col-sm-12" ng-if="entitySelect!=null"> \
     				<div class="col-sm-3"">{{entitySelect.stage_one_name}}</div> \
     				<div class="box text-center" \
-    						ng-class="{move: action.type.name==\'MOVE\', fight: action.type.name==\'FIGHT\' || action.type.name==\'BERSERK\' || action.type.name==\'DUCK\'}" \
-    						ng-repeat="action in entitySelect.stage_one_actions"> \
+    						ng-class="{move: action.type.name==\'MOVE\', magic: action.type.name==\'MAGIC\', fight: action.type.name==\'FIGHT\' || action.type.name==\'BERSERK\' || action.type.name==\'DUCK\'}" \
+    						ng-repeat="action in entitySelect.stage_one_actions track by $index"> \
     					<span class="smallest">{{action.type.name}}</span><br> \
-    					<span class="pill">{{action.strength.code}}{{action.speed}}</span><br> \
+    					<span class="pill">{{action.strength.code}}{{action.magic_type.code}}{{action.speed}}</span><br> \
     					<span ng-repeat="star in action.fatigue" class="glyphicon glyphicon-asterisk"> </span> \
     				</div> \
     				<span style="float: left;" class="smaller" ng-repeat="(key, value) in entitySelect.stage_one_equipped_items"> \
 						{{value.name}}<span ng-if="!$last">,&nbsp;</span> \
     				</span> \
+					<span style="float: left;" class="smaller" ng-if="entitySelect.stage_one_spells > 0"> \
+						<span ng-if="entitySelect.stage_one_spells > 1">{{entitySelect.stage_one_spells}}</span> Spell<span ng-if="entitySelect.stage_one_spells > 1">s</span> \
+					</span> \
     			</div> \
 				<div class="col-sm-12" ng-if="entitySelect!=null"> \
 					<div class="col-sm-3"">{{entitySelect.stage_two_name}}</div> \
 					<div class="box text-center" \
-							ng-class="{move: action.type.name==\'MOVE\', fight: action.type.name==\'FIGHT\' || action.type.name==\'BERSERK\' || action.type.name==\'DUCK\'}" \
+							ng-class="{move: action.type.name==\'MOVE\', magic: action.type.name==\'MAGIC\', fight: action.type.name==\'FIGHT\' || action.type.name==\'BERSERK\' || action.type.name==\'DUCK\'}" \
 							ng-repeat="action in entitySelect.stage_two_actions track by $index"> <!-- track by index to avoid duplicate keys error --> \
 						<span class="smallest">{{action.type.name}}</span><br> \
-						<span class="pill">{{action.strength.code}}{{action.speed}}</span><br> \
+						<span class="pill">{{action.strength.code}}{{action.magic_type.code}}{{action.speed}}</span><br> \
 						<span ng-repeat="star in action.fatigue" class="glyphicon glyphicon-asterisk"> </span> \
 					</div> \
 					<span style="float: left;" class="smaller" ng-repeat="(key, value) in entitySelect.stage_two_equipped_items"> \
     					{{value.name}}<span ng-if="!$last">,&nbsp;</span> \
     				</span> \
+					<span style="float: left;" class="smaller" ng-if="entitySelect.stage_two_spells > 0"> \
+						<span ng-if="entitySelect.stage_two_spells > 1">{{entitySelect.stage_two_spells}}</span> Spell<span ng-if="entitySelect.stage_two_spells > 1">s</span> \
+					</span> \
 				</div> \
 				<div class="col-sm-12" ng-if="entitySelect!=null"> \
 					<div class="col-sm-3"">{{entitySelect.stage_three_name}}</div> \
 					<div class="box text-center" \
-							ng-class="{move: action.type.name==\'MOVE\', fight: action.type.name==\'FIGHT\' || action.type.name==\'BERSERK\' || action.type.name==\'DUCK\'}" \
+							ng-class="{move: action.type.name==\'MOVE\', magic: action.type.name==\'MAGIC\', fight: action.type.name==\'FIGHT\' || action.type.name==\'BERSERK\' || action.type.name==\'DUCK\'}" \
 							ng-repeat="action in entitySelect.stage_three_actions track by $index"> \
 						<span class="smallest">{{action.type.name}}</span><br> \
-						<span class="pill">{{action.strength.code}}{{action.speed}}</span><br> \
+						<span class="pill">{{action.strength.code}}{{action.magic_type.code}}{{action.speed}}</span><br> \
 						<span ng-repeat="star in action.fatigue" class="glyphicon glyphicon-asterisk"> </span> \
 					</div> \
 					<span style="float: left;" class="smaller" ng-repeat="(key, value) in entitySelect.stage_three_equipped_items"> \
 						{{value.name}}<span ng-if="!$last">,&nbsp;</span> \
 					</span> \
+					<span style="float: left;" class="smaller" ng-if="entitySelect.stage_three_spells > 0"> \
+    					<span ng-if="entitySelect.stage_three_spells > 1">{{entitySelect.stage_three_spells}}</span> Spell<span ng-if="entitySelect.stage_three_spells > 1">s</span> \
+					</span> \
 				</div> \
 				<div class="col-sm-12" ng-if="entitySelect!=null"> \
 					<div class="col-sm-3"">{{entitySelect.name}}</div> \
 					<div class="box text-center" \
-							ng-class="{move: action.type.name==\'MOVE\', fight: action.type.name==\'FIGHT\' || action.type.name==\'BERSERK\' || action.type.name==\'DUCK\'}" \
-							ng-repeat="action in entitySelect.stage_four_actions"> \
+							ng-class="{move: action.type.name==\'MOVE\', magic: action.type.name==\'MAGIC\', fight: action.type.name==\'FIGHT\' || action.type.name==\'BERSERK\' || action.type.name==\'DUCK\'}" \
+							ng-repeat="action in entitySelect.stage_four_actions track by $index"> \
 						<span class="smallest">{{action.type.name}}</span><br> \
-						<span class="pill">{{action.strength.code}}{{action.speed}}</span><br> \
+						<span class="pill">{{action.strength.code}}{{action.magic_type.code}}{{action.speed}}</span><br> \
 						<span ng-repeat="star in action.fatigue" class="glyphicon glyphicon-asterisk"> </span> \
 					</div> \
 					<span style="float: left;" class="smaller" ng-repeat="(key, value) in entitySelect.stage_four_equipped_items"> \
 						{{value.name}}<span ng-if="!$last">,&nbsp;</span> \
+					</span> \
+					<span style="float: left;" class="smaller" ng-if="entitySelect.stage_four_spells > 0"> \
+						<span ng-if="entitySelect.stage_four_spells > 1">{{entitySelect.stage_four_spells}}</span> Spell<span ng-if="entitySelect.stage_four_spells > 1">s</span> \
 					</span> \
 				</div> \
     		</div> \
