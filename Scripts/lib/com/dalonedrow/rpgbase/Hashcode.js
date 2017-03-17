@@ -2,7 +2,7 @@
  * 
  */
 function Hashcode() {
-    var text = [];
+    text = [];
     var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     do { 
         for(var i = 8; i > 0; i--) {
@@ -19,4 +19,3 @@ function Hashcode() {
     }
 }
 Hashcode.codes = [];
-module.exports = Hashcode;

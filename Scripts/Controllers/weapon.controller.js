@@ -100,8 +100,6 @@ angular.module('restApp').controller('WeaponController', function($scope, $windo
     var getAllEntities = function() {        
         var promise = itemService.getEntities();
         promise.then(function(response) {
-            console.log("GET::");
-            console.log(response);
             if (response.status === 200) {
                 $scope.entities = [];
                 for (var i = response.data.length - 1; i >= 0; i--) {
@@ -137,6 +135,14 @@ angular.module('restApp').controller('WeaponController', function($scope, $windo
                     $scope.entities.push(obj);
                     obj = null;
                 }
+                var v2 = new SimpleVector2();
+                console.log(v2.toString());
+                v2.set(1,5);
+                console.log(v2.toString());
+                console.log(v2.getY());
+                var v2a = new SimpleVector2(v2);
+                var v3 = new SimpleVector3(v2);
+                console.log(v3.toString());
             }
         });
     };
