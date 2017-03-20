@@ -55,3 +55,11 @@ body {
 .charicon {
 	font-size: 16em;
 }
+.tile_space {
+    font-family: "Lucida Console", Monaco, monospace;
+    line-height: 1;
+}
+.dark_green_on_black {
+	background-color: #000;
+	color: #0f0;
+}
