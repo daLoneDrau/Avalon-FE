@@ -130,7 +130,7 @@ function Hexagon() {
         s.push(z);
         len = z.toString().length;
         for (var i = "       ".length - len; i > 0; i--) {
-            s.push(' ');
+            s.push('&nbsp;');
         }
         s.push("/");
         s.push('\n');
@@ -274,7 +274,7 @@ function Hexagon() {
      * @param q the column
      * @param r the row
      */
-    this.setCoordinates = function(q, r) {
+    this.setCoordinates = function() {
     	if (arguments.length === 1
     			&& arguments[0] instanceof SimpleVector3) {
             x = arguments[0].getX();
@@ -286,8 +286,8 @@ function Hexagon() {
 	        y = -x - z;
     	} else if (arguments.length === 3) {
 	        x = arguments[0];
-	        y = arguments[2];
-	        z = arguments[1];
+	        y = arguments[1];
+	        z = arguments[2];
     	}
     }
     this.toCubeCoordinateString = function() {

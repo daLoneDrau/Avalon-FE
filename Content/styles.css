@@ -59,7 +59,23 @@ body {
     font-family: "Lucida Console", Monaco, monospace;
     line-height: 1;
 }
-.dark_green_on_black {
+.lawn_green_on_black {
 	background-color: #000;
-	color: #0f0;
+	color: LawnGreen;
+}
+.forest_green_on_black {
+	background-color: #000;
+	color: ForestGreen;
+}
+.chocolate_on_black {
+	background-color: #000;
+	color: #7B3F00;
+}
+.black_on_goldenrod {
+	background-color: Goldenrod;
+	color: #000;
+}
+.goldenrod_on_black {
+	background-color: #000;
+	color: Goldenrod;
 }

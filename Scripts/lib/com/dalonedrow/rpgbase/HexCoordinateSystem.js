@@ -322,20 +322,20 @@ function HexCoordinateSystem(config) {
                                 // printing bottom
                                 if ((i % 4 === 1 || i % 4 === 2)
                                         && sb.length === 0) {
-                                    sb.push(' ');
+                                    sb.push('&nbsp;');
                                 }
                                 sb.push(split[i % 4 + 2]);
                             } else {
                                 // printing top
                                 if ((i % 4 === 1 || i % 4 === 2)
                                         && sb.length === 0) {
-                                    sb.push(' ');
+                                    sb.push('&nbsp;');
                                 }
                                 sb.push(split[i % 4 - 2]);
                             }
                         } else {
                             if ((i % 4 === 0 || i % 4 === 3) && sb.length === 0) {
-                                sb.push(' ');
+                                sb.push('&nbsp;');
                             }
                             sb.push(split[i % 4]);
                         }
@@ -343,7 +343,7 @@ function HexCoordinateSystem(config) {
                         // center is not odd
                         if (columnIsEven) {
                             if ((i % 4 === 0 || i % 4 === 3) && sb.length === 0) {
-                                sb.push(' ');
+                                sb.push('&nbsp;');
                             }
                             sb.push(split[i % 4]);
                         } else {
@@ -351,14 +351,14 @@ function HexCoordinateSystem(config) {
                                 // printing bottom
                                 if ((i % 4 === 1 || i % 4 === 2)
                                         && sb.length === 0) {
-                                    sb.push(' ');
+                                    sb.push('&nbsp;');
                                 }
                                 sb.push(split[i % 4 + 2]);
                             } else {
                                 // printing top
                                 if ((i % 4 == 1 || i % 4 === 2)
                                         && sb.length === 0) {
-                                    sb.push(' ');
+                                    sb.push('&nbsp;');
                                 }
                                 sb.push(split[i % 4 - 2]);
                             }
@@ -369,7 +369,7 @@ function HexCoordinateSystem(config) {
                         if (columnIsEven) {
                             if (i % 4 === 1 || i % 4 === 2) {
                                 if (sb.length == 0) {
-                                    sb.push(' ');
+                                    sb.push('&nbsp;');
                                 }
                                 sb.push("|*****|");
                             } else {
@@ -378,7 +378,7 @@ function HexCoordinateSystem(config) {
                         } else {
                             if (i % 4 == 0 || i % 4 === 3) {
                                 if (sb.length === 0) {
-                                    sb.push(' ');
+                                    sb.push('&nbsp;');
                                 }
                                 sb.push("|*****|");
                             } else {
@@ -389,7 +389,7 @@ function HexCoordinateSystem(config) {
                         if (columnIsEven) {
                             if (i % 4 === 0 || i % 4 === 3) {
                                 if (sb.length === 0) {
-                                    sb.push(' ');
+                                    sb.push('&nbsp;');
                                 }
                                 sb.push("|*****|");
                             } else {
@@ -398,7 +398,7 @@ function HexCoordinateSystem(config) {
                         } else {
                             if (i % 4 === 1 || i % 4 === 2) {
                                 if (sb.length === 0) {
-                                    sb.push(' ');
+                                    sb.push('&nbsp;');
                                 }
                                 sb.push("|*****|");
                             } else {
@@ -476,20 +476,20 @@ function HexCoordinateSystem(config) {
                                 // printing bottom
                                 if ((i % 4 === 1 || i % 4 == 2)
                                         && sb.length === 0) {
-                                    sb.push(' ');
+                                    sb.push('&nbsp;');
                                 }
                                 sb.push(split[i % 4 + 2]);
                             } else {
                                 // printing top
                                 if ((i % 4 == 1 || i % 4 == 2)
                                         && sb.length === 0) {
-                                    sb.push(' ');
+                                    sb.push('&nbsp;');
                                 }
                                 sb.push(split[i % 4 - 2]);
                             }
                         } else {
                             if ((i % 4 === 0 || i % 4 === 3) && sb.length === 0) {
-                                sb.push(' ');
+                                sb.push('&nbsp;');
                             }
                             sb.push(split[i % 4]);
                         }
@@ -497,7 +497,7 @@ function HexCoordinateSystem(config) {
                         // center is not odd
                         if (columnIsEven) {
                             if ((i % 4 === 0 || i % 4 === 3) && sb.length === 0) {
-                                sb.push(' ');
+                                sb.push('&nbsp;');
                             }
                             sb.push(split[i % 4]);
                         } else {
@@ -505,14 +505,14 @@ function HexCoordinateSystem(config) {
                                 // printing bottom
                                 if ((i % 4 === 1 || i % 4 === 2)
                                         && sb.length == 0) {
-                                    sb.push(' ');
+                                    sb.push('&nbsp;');
                                 }
                                 sb.push(split[i % 4 + 2]);
                             } else {
                                 // printing top
                                 if ((i % 4 == 1 || i % 4 === 2)
                                         && sb.length === 0) {
-                                    sb.push(' ');
+                                    sb.push('&nbsp;');
                                 }
                                 sb.push(split[i % 4 - 2]);
                             }
@@ -523,7 +523,7 @@ function HexCoordinateSystem(config) {
                         if (columnIsEven) {
                             if (i % 4 === 1 || i % 4 === 2) {
                                 if (sb.length === 0) {
-                                    sb.push(' ');
+                                    sb.push('&nbsp;');
                                 }
                                 sb.push("|*****|");
                             } else {
@@ -532,7 +532,7 @@ function HexCoordinateSystem(config) {
                         } else {
                             if (i % 4 === 0 || i % 4 === 3) {
                                 if (sb.length === 0) {
-                                    sb.push(' ');
+                                    sb.push('&nbsp;');
                                 }
                                 sb.push("|*****|");
                             } else {
@@ -543,7 +543,7 @@ function HexCoordinateSystem(config) {
                         if (columnIsEven) {
                             if (i % 4 === 0 || i % 4 === 3) {
                                 if (sb.length === 0) {
-                                    sb.push(' ');
+                                    sb.push('&nbsp;');
                                 }
                                 sb.push("|*****|");
                             } else {
@@ -552,7 +552,7 @@ function HexCoordinateSystem(config) {
                         } else {
                             if (i % 4 === 1 || i % 4 === 2) {
                                 if (sb.length === 0) {
-                                    sb.push(' ');
+                                    sb.push('&nbsp;');
                                 }
                                 sb.push("|*****|");
                             } else {
