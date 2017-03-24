@@ -17,15 +17,17 @@ function GraphNode() {
         index = -1;
         name = null;
     } else if (arguments.length === 1
-    		&& arguments[0] instanceof GraphNode) {
-        index = arguments[0].index;
-        name = arguments[0].name.substr(0);
+            && GraphNode.prototype.isPrototypeOf(arguments[0])) {
+        index = arguments[0].getIndex();
+        name = arguments[0].getName().substr(0);
     } else if (arguments.length === 1) {
         index = arguments[0];
         name = null;
     } else if (arguments.length === 2) {
         name = arguments[0];
         index = arguments[1];
+    } else {
+    	throw new Error("Invalid # of arguments");
     }
     this.equals = function(obj) {
         var equals = false;

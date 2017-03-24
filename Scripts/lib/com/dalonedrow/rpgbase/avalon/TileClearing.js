@@ -11,14 +11,17 @@ function TileClearing() {
     		&& parseInt(arguments[2]) === parseInt(arguments[2])) {
         GraphNode.call(this, arguments[0], arguments[1]);
         type = arguments[2];
-    } else if (arguments.length === 2) {
+    } else if (arguments.length === 2
+            && parseInt(arguments[0]) === parseInt(arguments[0])
+            && parseInt(arguments[1]) === parseInt(arguments[1])) {
     	GraphNode.call(this, arguments[0]);
         type = arguments[1];
     } else if (arguments.length === 1
-    		&& arguments[0] instanceof TileClearing) {
-    	GraphNode.call(this, arguments[0].getName(), arguments[0].getIndex());
+            && TileClearing.prototype.isPrototypeOf(arguments[0])) {
+    	GraphNode.call(this, arguments[0]);
         type = arguments[0].getType();
-    } else if (arguments.length === 1) {
+    } else if (arguments.length === 1
+            && parseInt(arguments[0]) === parseInt(arguments[0])) {
     	GraphNode.call(this);
         type = arguments[0];
     } else {
@@ -29,7 +32,7 @@ function TileClearing() {
      * @return <code>int</code>
      */
     this.getClearingNumber = function() {
-        return this.getName().charAt(2);
+        return parseInt(this.getName().charAt(2));
     }
     /**
      * Gets the the clearing type (cave, mountain, or woods).

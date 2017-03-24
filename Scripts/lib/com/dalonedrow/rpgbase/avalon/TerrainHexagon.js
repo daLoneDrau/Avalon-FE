@@ -4,9 +4,12 @@
 //var Hashcode = require("./Hashcode.js");
 function TerrainHexagon() {
     Hashcode.call(this);
-    if (arguments.length === 2) {
+    if (arguments.length === 2
+            && parseInt(arguments[0]) === parseInt(arguments[0])
+            && parseInt(arguments[1]) === parseInt(arguments[1])) {
         Hexagon.call(this, arguments[0], arguments[1]);
-    } else if (arguments.length === 1) {
+    } else if (arguments.length === 1
+            && parseInt(arguments[0]) === parseInt(arguments[0])) {
         Hexagon.call(this, false, arguments[0]);
     } else {
 		throw new Error("Invalid # of arguments");
@@ -88,7 +91,7 @@ function TerrainHexagon() {
             switch (clearing.getType()) {
 	            case ClearingEnum.CLEARING_TYPE_CAVE:
 	                //data = this.getANSICaveClearing(data, clearing);
-	                data = this.getANSIClearing(data, clearing);
+	                data = this.getANSICaveClearing(data, clearing);
 	                break;
 	            default:
 	                data = this.getANSIClearing(data, clearing);
@@ -199,6 +202,36 @@ function TerrainHexagon() {
 	    sb.push("</span>");
         sb.push(TerrainHexagon.GOLDENROD_ON_BLACK);
         sb.push('&nbsp;');
+	    sb.push("</span>\n");
+        return sb.join("");
+    }
+    /**
+     * Gets clean ANSI art for a woods/mountain clearing.
+     * @param text the initial text
+     * @param clearing the {@link TileClearing}
+     * @return {@link String}
+     */
+    this.getANSICaveClearing = function(text, clearing) {
+    	console.log(text);
+        var data = text;
+        var sb = [];
+        
+        sb.push(TerrainHexagon.WHITE_ON_BLACK);
+	    sb.push("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
+	    sb.push("</span>\n");
+
+        sb.push(TerrainHexagon.WHITE_ON_BLACK);
+        sb.push('&nbsp;&nbsp;_____&nbsp;&nbsp;');
+	    sb.push("</span>\n");
+
+        sb.push(TerrainHexagon.WHITE_ON_BLACK);
+        sb.push('&nbsp;&nbsp;|');
+        sb.push(clearing.getName());
+        sb.push('|&nbsp;&nbsp;');
+	    sb.push("</span>\n");
+
+        sb.push(TerrainHexagon.WHITE_ON_BLACK);
+        sb.push('&nbsp;|___|&nbsp;');
 	    sb.push("</span>\n");
         return sb.join("");
     }
@@ -331,4 +364,5 @@ TerrainHexagon.LAWN_GREEN = "<span class=\"lawn_green_on_black\">";
 TerrainHexagon.CHOCOLATE = "<span class=\"chocolate_on_black\">";
 TerrainHexagon.BLACK_ON_GOLDENROD = "<span class=\"black_on_goldenrod\">";
 TerrainHexagon.GOLDENROD_ON_BLACK = "<span class=\"goldenrod_on_black\">";
+TerrainHexagon.WHITE_ON_BLACK = "<span class=\"white_on_black\">";
 TerrainHexagon.NUM_SIDES = 6;

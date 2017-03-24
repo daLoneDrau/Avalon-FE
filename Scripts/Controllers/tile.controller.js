@@ -49,6 +49,24 @@ angular.module('restApp').controller('TileController', function($scope, $window,
                     		obj.clearings[j].location.z = 0;
                     	}
                     }
+                    for (var j = obj.edges.length - 1; j >= 0; j--) {
+                        var path = obj.edges[j].path;
+                        for (var k = path.path.length - 1; k >= 0; k--) {
+                            if (angular.isUndefined(path[k].id)) {
+                                path[k].id = 0;
+                            }
+                            if (angular.isUndefined(path[k].x)) {
+                                path[k].x = 0;
+                            }
+                            if (angular.isUndefined(path[k].y)) {
+                                path[k].y = 0;
+                            }
+                            if (angular.isUndefined(path[k].z)) {
+                                path[k].z = 0;
+                            }
+                        }
+                        path = null;
+                    }
                     var tile = new HexTile(nextWorldId++, obj.name, TileEnum[obj.type.code]);
                     // add clearings
                     for (var j = obj.clearings.length - 1; j >= 0; j--) {

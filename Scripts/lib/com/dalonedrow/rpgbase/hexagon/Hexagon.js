@@ -1,7 +1,7 @@
 /**
  * 
  */
-//var Hashcode = require("./Hashcode.js");
+// var Hashcode = require("./Hashcode.js");
 function Hexagon() {
     Hashcode.call(this);
     /** each hexagon has a unique id. */
@@ -9,8 +9,8 @@ function Hexagon() {
     /** hexagons have 6 edges; each edge is shared by another hexagon. */
     var edges = [ -1, -1, -1, -1, -1, -1 ];
     /** hexagons have 6 corners; each corner is shared by two other hexagons. */
-    var corners = [ [ -1, -1 ], [ -1, -1 ], [ -1, -1 ], [ -1, -1 ],
-        [ -1, -1 ], [ -1, -1 ] ];
+    var corners = [ [ -1, -1 ], [ -1, -1 ], [ -1, -1 ], [ -1, -1 ], [ -1, -1 ],
+            [ -1, -1 ] ];
     /** the hexagon's orientation; flat or pointed on top. */
     var flat;
     /** the hexagon's height. */
@@ -18,9 +18,11 @@ function Hexagon() {
     /** the horizontal distance between adjacent hexes. */
     var horizontalDistance;
     /** constants. */
-    const sixty = 60, oneEighty = 180;
+    const
+    sixty = 60, oneEighty = 180;
     /** constants. */
-    const three = 3, four = 4, six = 6, thirty = 30;
+    const
+    three = 3, four = 4, six = 6, thirty = 30;
     /** the distance between a hexagon's center point and a corner. */
     var size;
     /** the vertical distance between adjacent hexes. */
@@ -47,37 +49,37 @@ function Hexagon() {
             horizontalDistance = width;
         }
     };
-    
-	if (arguments.length === 1) {
-		flat = true;
+
+    if (arguments.length === 1) {
+        flat = true;
         id = arguments[0];
         this.setSize(0);
-	} else if (arguments.length === 2) {
-		if (isNaN(arguments[0])){
-			flat = true;
-	        id = arguments[1];
-	        this.setSize(0);
-		} else {
-			flat = arguments[0];
-	        id = arguments[0];
-	        this.setSize(arguments[1]);
-		}
-	} else if (arguments.length === 3) {
+    } else if (arguments.length === 2) {
+        if (isNaN(arguments[0])) {
+            flat = true;
+            id = arguments[1];
+            this.setSize(0);
+        } else {
+            flat = arguments[0];
+            id = arguments[0];
+            this.setSize(arguments[1]);
+        }
+    } else if (arguments.length === 3) {
         id = arguments[1];
         flat = arguments[0];
         if (arguments[2] > 0) {
-        	this.setSize(arguments[2]);
+            this.setSize(arguments[2]);
         }
-	} else {
-		throw new Error(
-		        "Invalid number of arguments, must be 1 Attribute to copy, or 2 or 3 strings");
-	}
-	this.copyOf = function(hex) {
-	    this.size = hex.size;
-	    this.x = hex.getX();
-	    this.y = hex.getY();
-	    this.z = hex.getZ();
-	};
+    } else {
+        throw new Error(
+                "Invalid number of arguments, must be 1 Attribute to copy, or 2 or 3 strings");
+    }
+    this.copyOf = function(hex) {
+        this.size = hex.size;
+        this.x = hex.getX();
+        this.y = hex.getY();
+        this.z = hex.getZ();
+    };
     /**
      * Determines if this {@link Hexagon} is equal to the supplied coordinates.
      * @param x1 the x-coordinate
@@ -93,20 +95,13 @@ function Hexagon() {
         }
         return equals;
     }
-	/**
-	 * Gets the value of the flat.
-	 * @return {@link boolean}
-	 */
-	this.isFlat = function() {
-	    return flat;
-	};	
     /**
-     * Gets the {@link Hexagon}'s position.
-     * @return {@link SimpleVector3}
+     * Gets the value of the flat.
+     * @return {@link boolean}
      */
-    this.getVector = function() {
-        return new SimpleVector3(x, y, z);
-    }
+    this.isFlat = function() {
+        return flat;
+    };
     this.getCubeCoordinatesArt = function() {
         s = [];
         // s.push(" _ _ ");
@@ -155,17 +150,17 @@ function Hexagon() {
      * @return {@link SimplePoint}
      */
     this.getHexCornerVertex = function() {
-    	var center, cornerId;
-    	if (arguments.length === 3) {
-    		this.setSize(arguments[1]);
-    		center = arguments[0];
-    		cornerId = arguments[2];
-    	} else if (arguments.length === 2) {
-    		center = arguments[0];
-    		cornerId = arguments[1];
-    	} else {
-    		throw new Error("Invalid number of arguments");
-    	}
+        var center, cornerId;
+        if (arguments.length === 3) {
+            this.setSize(arguments[1]);
+            center = arguments[0];
+            cornerId = arguments[2];
+        } else if (arguments.length === 2) {
+            center = arguments[0];
+            cornerId = arguments[1];
+        } else {
+            throw new Error("Invalid number of arguments");
+        }
         if (size <= 0) {
             throw new Error("Size was never set!");
         }
@@ -225,6 +220,13 @@ function Hexagon() {
         return size;
     }
     /**
+     * Gets the {@link Hexagon}'s position.
+     * @return {@link SimpleVector3}
+     */
+    this.getVector = function() {
+        return new SimpleVector3(x, y, z);
+    }
+    /**
      * Gets the vertical distance between adjacent hexes.
      * @return <tt>float</tt>
      */
@@ -275,20 +277,19 @@ function Hexagon() {
      * @param r the row
      */
     this.setCoordinates = function() {
-    	if (arguments.length === 1
-    			&& arguments[0] instanceof SimpleVector3) {
+        if (arguments.length === 1 && arguments[0] instanceof SimpleVector3) {
             x = arguments[0].getX();
             z = arguments[0].getY();
             y = arguments[0].getZ();
-    	} else if (arguments.length === 2) {
-	        x = arguments[0];
-	        z = arguments[1];
-	        y = -x - z;
-    	} else if (arguments.length === 3) {
-	        x = arguments[0];
-	        y = arguments[1];
-	        z = arguments[2];
-    	}
+        } else if (arguments.length === 2) {
+            x = arguments[0];
+            z = arguments[1];
+            y = -x - z;
+        } else if (arguments.length === 3) {
+            x = arguments[0];
+            y = arguments[1];
+            z = arguments[2];
+        }
     }
     this.toCubeCoordinateString = function() {
         return new SimpleVector3(x, y, z).toString();
