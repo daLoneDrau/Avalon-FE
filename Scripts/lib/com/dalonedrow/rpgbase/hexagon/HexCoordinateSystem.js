@@ -250,16 +250,16 @@ function HexCoordinateSystem(config) {
 		} else {
             throw new Error("Invalid arguments");
 		}
-        if (distance(v0, v1) == 1) {
+        if (this.distance(v0, v1) === 1) {
             for (; i < HexCoordinateSystem.NEIGHBORS.length; i++) {
-                v0 = new SimpleVector3(v1);
-                v0.decrement(v0);
-                if (v0.equals(HexCoordinateSystem.NEIGHBORS[i])) {
+                var v = new SimpleVector3(v1);
+                v.decrement(v0);
+                if (v.equals(HexCoordinateSystem.NEIGHBORS[i])) {
                     break;
                 }
             }
         } else {
-            throw new Error("The hexes are not neighbors - " + hex0 + ", " + hex1);
+            throw new Error("The hexes are not neighbors - " + v0 + ", " + v1);
         }
         return i;
     }

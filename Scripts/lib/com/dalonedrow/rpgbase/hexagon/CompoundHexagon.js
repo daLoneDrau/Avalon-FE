@@ -63,7 +63,7 @@ function CompoundHexagon() {
     	if (arguments.length === 1) {
     		if (arguments[0] instanceof SimpleVector3) {
                 for (var i = hexes.length - 1; i >= 0; i--) {
-                    if (hexes[i].equals(arguments[0].getX(), arguments[1].getY(), arguments[2].getZ())) {
+                    if (hexes[i].equals(arguments[0].getX(), arguments[0].getY(), arguments[0].getZ())) {
                         hex = hexes[i];
                         break;
                     }
@@ -71,7 +71,10 @@ function CompoundHexagon() {
     		} else {
     			hex = hexes[arguments[0]];
     		}
-    	} else if (arguments.length === 3) {
+    	} else if (arguments.length === 3
+                && parseInt(arguments[0]) === parseInt(arguments[0])
+                && parseInt(arguments[1]) === parseInt(arguments[1])
+                && parseInt(arguments[2]) === parseInt(arguments[2])) {
             for (var i = hexes.length - 1; i >= 0; i--) {
                 if (hexes[i].equals(arguments[0], arguments[1], arguments[2])) {
                     hex = hexes[i];

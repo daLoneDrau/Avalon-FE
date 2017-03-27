@@ -50,71 +50,89 @@ angular.module('restApp').controller('TileController', function($scope, $window,
                     	}
                     }
                     for (var j = obj.edges.length - 1; j >= 0; j--) {
-                        var path = obj.edges[j].path;
-                        for (var k = path.path.length - 1; k >= 0; k--) {
+                        var path = obj.edges[j].path.nodes;
+                        for (var k = path.length - 1; k >= 0; k--) {
                             if (angular.isUndefined(path[k].id)) {
                                 path[k].id = 0;
                             }
-                            if (angular.isUndefined(path[k].x)) {
-                                path[k].x = 0;
+                            if (angular.isUndefined(path[k].sort_order)) {
+                                path[k].sort_order = 0;
                             }
-                            if (angular.isUndefined(path[k].y)) {
-                                path[k].y = 0;
+                            if (angular.isUndefined(path[k].node.x)) {
+                                path[k].node.x = 0;
                             }
-                            if (angular.isUndefined(path[k].z)) {
-                                path[k].z = 0;
+                            if (angular.isUndefined(path[k].node.y)) {
+                                path[k].node.y = 0;
+                            }
+                            if (angular.isUndefined(path[k].node.z)) {
+                                path[k].node.z = 0;
                             }
                         }
+                        // sort
+                        path.sort(function (a, b) {
+                            return a.sort_order - b.sort_order;
+                        });
                         path = null;
                     }
-                    var tile = new HexTile(nextWorldId++, obj.name, TileEnum[obj.type.code]);
-                    // add clearings
-                    for (var j = obj.clearings.length - 1; j >= 0; j--) {
-                    	tile.addClearing(new TileClearing(
-                    			obj.clearings[j].code,						// clearing name
-                    			nextVertexId++,								// clearing id
-                    			ClearingEnum[obj.clearings[j].type.code])); // clearing type
-                    }
-                    // add terrain
+                    for (var j = obj.side_edges.length - 1; j >= 0; j--) {
+                        var side_edge = obj.side_edges[j];
+                        if (angular.isUndefined(side_edge.id)) {
+                            side_edge.id = 0;
+                        }
+                        if (angular.isUndefined(side_edge.clearing_from.location.x)) {
+                            side_edge.clearing_from.location.x = 0;
+                        }
+                        if (angular.isUndefined(side_edge.clearing_from.location.y)) {
+                            side_edge.clearing_from.location.y = 0;
+                        }
+                        if (angular.isUndefined(side_edge.clearing_from.location.z)) {
+                            side_edge.clearing_from.location.z = 0;
+                        }
+                        if (angular.isUndefined(side_edge.side)) {
+                            side_edge.side = 0;
+                        }
+                        for (var k = side_edge.path.nodes.length - 1; k >= 0; k--) {
+                            var node = side_edge.path.nodes[k];
+                            if (angular.isUndefined(node.sort_order)) {
+                                node.sort_order = 0;
+                            }
+                            if (angular.isUndefined(node.node.x)) {
+                                node.node.x = 0;
+                            }
+                            if (angular.isUndefined(node.node.y)) {
+                                node.node.y = 0;
+                            }
+                            if (angular.isUndefined(node.node.z)) {
+                                node.node.z = 0;
+                            }
+                            node = null;
+                        }
+                        // sort
+                        side_edge.path.nodes.sort(function (a, b) {
+                            return a.sort_order - b.sort_order;
+                        });
+                        side_edge = null;
+                    } 
                     for (var j = obj.terrain.length - 1; j >= 0; j--) {
-                    	var terrain = obj.terrain[j];
-                    	if (angular.isUndefined(terrain.location.x)) {
-                    		terrain.location.x = 0;
-                    	}
-                    	if (angular.isUndefined(terrain.location.y)) {
-                    		terrain.location.y = 0;
-                    	}
-                    	if (angular.isUndefined(terrain.location.z)) {
-                    		terrain.location.z = 0;
-                    	}
-                        var hexagon = new TerrainHexagon(nextPhysicalId++);
-                        hexagon.setCoordinates(
-                        		terrain.location.x, terrain.location.y, terrain.location.z);
-                        hexagon.setTerrain(TerrainEnum[terrain.type.code]);
-                        tile.addHex(hexagon);
-                        physicalGrid.addHexagon(hexagon);
-                        hexagon = null;
+                        var terrain = obj.terrain[j];
+                        if (angular.isUndefined(terrain.location.x)) {
+                            terrain.location.x = 0;
+                        }
+                        if (angular.isUndefined(terrain.location.y)) {
+                            terrain.location.y = 0;
+                        }
+                        if (angular.isUndefined(terrain.location.z)) {
+                            terrain.location.z = 0;
+                        }
                         terrain = null;
                     }
-                    // assign clearings to inner hexagons
-                    for (var j = obj.clearings.length - 1; j >= 0; j--) {
-                    	var hexagon = tile.getHexagon(
-                    			obj.clearings[j].location.x, obj.clearings[j].location.y,
-                    			obj.clearings[j].location.z);
-                    	console.log("get clearing "
-                    			+obj.clearings[j].location.x+","
-                    			+obj.clearings[j].location.y+","
-                    			+obj.clearings[j].location.z)
-                    	console.log(tile.getClearing(obj.clearings[j].code))
-                    	hexagon.setClearing(tile.getClearing(obj.clearings[j].code));
-                    	hexagon = null;
-                    	console.log(tile.getHexagon(
-                    			obj.clearings[j].location.x, obj.clearings[j].location.y, obj.clearings[j].location.z)
-                    			.getClearing().getType())
-                    }                    
+                    console.log(obj);
+                    // keep a pristine copy of the graph, in case we need to start over
+                    var pristine = new MagicRealmGraph(0);
+                    var util = new HexSetupUtility();
+                    var tile = util.loadHexTile(obj, pristine);
                     $scope.entities.push(tile);
                     obj = null;
-                    tile = null;
                 }
                 console.log($scope.entities);
                 $scope.tile_markup = $sce.trustAsHtml(physicalGrid.printView(

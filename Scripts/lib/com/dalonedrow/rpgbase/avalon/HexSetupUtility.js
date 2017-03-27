@@ -23,49 +23,44 @@ function HexSetupUtility() {
      * @throws Exception if the hex is null, or there is an error loading the
      *             file
      */
-    private void addPhysicalPath(final HexTile hexTile, final String mapFile,
-            final String pathId) throws Exception {
-        if (hexTile == null) {
-            throw new Exception("Hex cannot be null");
+    var addPhysicalPath = function(hexTile, edge) {
+        console.log("adding path "+edge.path.code);
+        if (hexTile === null) {
+            throw new Error("Hex cannot be null");
         }
-        int rotations = hexTile.getRotations();
+        var rotations = hexTile.getRotations();
         if (rotations > 0) {
             // rotate the hex back into its original alignment
-            for (int i = six - rotations; i > 0; i--) {
+            for (var i = six - rotations; i > 0; i--) {
                 hexTile.rotate();
             }
         }
         // set the new terrain type for each hex coordinate
-        String[] data =
-                TextLoader.getInstance().loadText(mapFile, pathId).split("\n");
-        SimpleVector3 v0, v1 = null;
-        for (int j = 0, len = data.length; j < len; j++) {
-            String[] split = data[j].split(" ");
+        var v0 = null, v1 = null;
+        for (var j = 0, len = edge.path.nodes.length; j < len; j++) {
+            var node = edge.path.nodes[j];
+            console.log(node);
             v0 = v1;
-            v1 = new SimpleVector3(Integer.parseInt(split[0]), 
-                    Integer.parseInt(split[1]), Integer.parseInt(split[2]));
-            if (v0 != null && v1 != null) {
-                TerrainHexagon hexagon = 
-                        (TerrainHexagon) hexTile.getHexagon(v0);
-                if (hexagon != null) {
-                    hexagon.addRoadEdge(MagicRealmMap.getInstance()
-                            .getPhysicalGrid().getSharedEdge(v0, v1));
+            v1 = new SimpleVector3(node.node.x, node.node.y, node.node.z);
+            if (v0 !== null && v1 !== null) {
+                console.log(v0.toString()+"->"+v1.toString());
+                var hexagon = hexTile.getHexagon(v0);
+                if (hexagon !== null) {
+                    hexagon.addRoadEdge(MagicRealmMap.getPhysicalGrid().getSharedEdge(v0, v1));
                 }
-                hexagon = (TerrainHexagon) hexTile.getHexagon(v1);
+                hexagon = hexTile.getHexagon(v1);
                 if (hexagon != null) {
-                    hexagon.addRoadEdge(MagicRealmMap.getInstance()
-                            .getPhysicalGrid().getSharedEdge(v1, v0));
+                    hexagon.addRoadEdge(MagicRealmMap.getPhysicalGrid().getSharedEdge(v1, v0));
                 }
                 hexagon = null;
             }
-            split = null;
+            node = null;
         }
         // rotate back into game alignment
-        for (int i = rotations; i > 0; i--) {
+        for (var i = rotations; i > 0; i--) {
             hexTile.rotate();
         }
         // garbage collection
-        data = null;
         v0 = null;
         v1 = null;
     }
@@ -101,7 +96,7 @@ function HexSetupUtility() {
      *             file
      */
     this.loadHexTile = function(obj, g) {
-        var tile = new HexTile(nextWorldId++, obj.name, TileEnum[obj.type.code]);
+        var tile = new HexTile(nextOverworldId++, obj.name, TileEnum[obj.type.code]);
         // add clearings
         for (var j = obj.clearings.length - 1; j >= 0; j--) {
             g.addVertex(new TileClearing(
@@ -121,7 +116,7 @@ function HexSetupUtility() {
         }
         // add edges to sides
         for (var j = obj.side_edges.length - 1; j >= 0; j--) {
-            tile.setEdgeToClearing(obj.side_edges[j].side, obj.side_edges[j].number);
+            tile.setEdgeToClearing(obj.side_edges[j].side, obj.side_edges[j].clearing_from.number);
         }
         // load the ascii map
         loadPhysicalMap(tile, obj);
@@ -151,57 +146,26 @@ function HexSetupUtility() {
             }
         }
         // load terrain
-        PooledStringBuilder sb =
-                StringBuilderPool.getInstance().getStringBuilder();
-        sb.append(new String(hexTile.getName()).toLowerCase());
-        sb.append("_maps.txt");
-        String[] data =
-                TextLoader.getInstance().loadText(sb.toString(), "terrain")
-                        .split("\n");
-        for (int i = data.length - 1; i >= 0; i--) {
-            String[] line = data[i].split(" ");
-            if (line.length < max) {
-                continue;
-            }
-            int x = Integer.parseInt(line[0]);
-            int y = Integer.parseInt(line[1]);
-            int z = Integer.parseInt(line[2]);
-            TerrainHexagon hexagon = 
-                    (TerrainHexagon) hexTile.getHexagon(x, y, z);
-            hexagon.setTerrain(TerrainHexagon.class.getField(line[max - 1])
-                    .getInt(null));
-            line = null;
+        for (var j = obj.terrain.length - 1; j >= 0; j--) {
+            var terrain = obj.terrain[j];
+            var hexagon = hexTile.getHexagon(terrain.location.x, terrain.location.y,
+                    terrain.location.z);
+            hexagon.setTerrain(TerrainEnum[terrain.type.code]);
+            terrain = null;
             hexagon = null;
         }
         // assign clearings to inner hexagons
-        data =
-                TextLoader.getInstance()
-                        .loadText(sb.toString(), "clearing_hex").split("\n");
-        for (int i = data.length - 1; i >= 0; i--) {
-            String[] line = data[i].split(" ");
-            ((TerrainHexagon) hexTile.getHexagon(Integer.parseInt(line[1]),
-                    Integer.parseInt(line[2]), Integer.parseInt(line[max - 1])))
-                    .setClearingId(hexTile.getClearing(Integer
-                            .parseInt(line[0])));
-            System.out.println("clearing "
-                    + hexTile.getClearing(Integer.parseInt(line[0]))
-                    + " assigned to hex "
-                    + hexTile
-                            .getHexagon(Integer.parseInt(line[1]), Integer
-                                    .parseInt(line[2]), Integer
-                                    .parseInt(line[max - 1])));
-            line = null;
+        for (var j = obj.clearings.length - 1; j >= 0; j--) {
+            var clearing = obj.clearings[j];
+            var hexagon = hexTile.getHexagon(clearing.location.x, clearing.location.y,
+                    clearing.location.z);
+            hexagon.setClearingId(hexTile.getClearing)
+            clearing = null;
+            hexagon = null;            
         }
         // load paths
-        data =
-                TextLoader.getInstance().loadText(sb.toString(), "paths")
-                        .split("\n");
-        for (int i = data.length - 1; i >= 0; i--) {
-            addPhysicalPath(hexTile, sb.toString(), data[i]);
+        for (var j = obj.edges.length - 1; j >= 0; j--) {
+            addPhysicalPath(hexTile, obj.edges[j]);
         }
-        // garbage collection
-        sb.returnToPool();
-        sb = null;
-        data = null;
     }
 }

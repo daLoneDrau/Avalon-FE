@@ -18,13 +18,6 @@ function TerrainHexagon() {
     var clearingId = -1;
     /** the hex's terrain value. */
     var terrain    = null;
-    var clearing = null;
-    this.setClearing = function(cl) {
-    	clearing = cl;
-    }
-    this.getClearing = function() {
-    	return clearing;
-    }
     /**
      * Adds a road edge to the terrain.
      * @param side the side the loads leads out
@@ -45,45 +38,9 @@ function TerrainHexagon() {
         clearingId = hex.clearingId;
         terrain = hex.terrain;
     }
-    /**
-     * Loads the terrain art from file.
-     * @return {@link String}
-     * @throws Exception if there is an error loading the art
-     */
-    this.loadTerrainArt = function() {
-        var sb = [];
-        sb.push("terrain_");
-        if (terrain < TerrainEnum.CLEARING) {
-            sb.push("ROAD");
-            for (var i = 0, len = TerrainEnum.NUM_SIDES; i < len; i++) {
-                if ((terrain & 1 << i) == 1 << i) {
-                    sb.append('_');
-                    sb.append(i);
-                }
-            }
-        } else if (terrain == TerrainEnum.CLEARING) {
-            sb.push("CLEARING");
-            sb = [];
-            sb.push("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\n");
-            sb.push("&nbsp;&nbsp;xxxxx&nbsp;&nbsp;\n");
-            sb.push("&nbsp;&nbsp;xx&nbsp;xx&nbsp;&nbsp;\n");
-            sb.push("&nbsp;xxxxx&nbsp;\n");
-        } else if (terrain > TerrainEnum.CLEARING
-                && terrain < TerrainEnum.FOREST) {
-            sb.push("CLEARING_ROAD");
-            for (var i = 0, len = TerrainEnum.NUM_SIDES; i < len; i++) {
-                if ((terrain & 1 << i) == 1 << i) {
-                    sb.append('_');
-                    sb.append(i);
-                }
-            }
-        }
-        console.log(sb.join(""));
-        return sb.join("");
-    }
     this.getAsciiArt = function() {
     	console.log("terrain::"+terrain);
-        var data = this.loadTerrainArt();
+        var data = loadTerrainArt();
         if (terrain >= TerrainEnum.CLEARING
                 && terrain < TerrainEnum.FOREST) {
         	console.log(this.getVector().toString());
@@ -305,6 +262,42 @@ function TerrainHexagon() {
      */
     this.getTerrain = function() {
         return terrain;
+    }
+    /**
+     * Loads the terrain art from file.
+     * @return {@link String}
+     * @throws Exception if there is an error loading the art
+     */
+    var loadTerrainArt = function() {
+        var sb = [];
+        sb.push("terrain_");
+        if (terrain < TerrainEnum.CLEARING) {
+            sb.push("ROAD");
+            for (var i = 0, len = TerrainEnum.NUM_SIDES; i < len; i++) {
+                if ((terrain & 1 << i) == 1 << i) {
+                    sb.append('_');
+                    sb.append(i);
+                }
+            }
+        } else if (terrain == TerrainEnum.CLEARING) {
+            sb.push("CLEARING");
+            sb = [];
+            sb.push("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\n");
+            sb.push("&nbsp;&nbsp;xxxxx&nbsp;&nbsp;\n");
+            sb.push("&nbsp;&nbsp;xx&nbsp;xx&nbsp;&nbsp;\n");
+            sb.push("&nbsp;xxxxx&nbsp;\n");
+        } else if (terrain > TerrainEnum.CLEARING
+                && terrain < TerrainEnum.FOREST) {
+            sb.push("CLEARING_ROAD");
+            for (var i = 0, len = TerrainEnum.NUM_SIDES; i < len; i++) {
+                if ((terrain & 1 << i) == 1 << i) {
+                    sb.append('_');
+                    sb.append(i);
+                }
+            }
+        }
+        console.log(sb.join(""));
+        return sb.join("");
     }
     this.rotate = function() {
     	Object.getPrototypeOf(Hexagon.prototype).rotate();
