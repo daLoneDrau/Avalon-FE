@@ -99,7 +99,7 @@ function HexTile() {
                 }
                 break;
             case 3: // the hex has three clearings, numbered 2, 4-5
-                if (number == 2) {
+                if (number === 2) {
                     clearingId = min;
                 } else if (number > three && number < six) {
                     clearingId = min + number - three;

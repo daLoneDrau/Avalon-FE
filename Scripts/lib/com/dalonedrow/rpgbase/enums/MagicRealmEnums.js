@@ -9,7 +9,7 @@ var TerrainEnum = {
 		GRASS: 135,
 		GRASS_GREY: 136,
 		MOUNTAIN: 129,
-		RUINS: 9,
+		RUINS: 130,
 		properties: {
 			128: {name: "forest", value: 128 },
 			132: {name: "gold forest", value: 132 },

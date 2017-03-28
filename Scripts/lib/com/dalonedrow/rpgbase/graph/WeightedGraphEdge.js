@@ -30,3 +30,5 @@ function WeightedGraphEdge() {
 		cost = c;
 	}
 }
+WeightedGraphEdge.prototype = Object.create(GraphEdge.prototype);
+WeightedGraphEdge.prototype.constructor = WeightedGraphEdge;

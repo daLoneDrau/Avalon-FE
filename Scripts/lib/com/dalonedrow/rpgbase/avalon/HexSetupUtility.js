@@ -24,7 +24,6 @@ function HexSetupUtility() {
      *             file
      */
     var addPhysicalPath = function(hexTile, edge) {
-        console.log("adding path "+edge.path.code);
         if (hexTile === null) {
             throw new Error("Hex cannot be null");
         }
@@ -39,11 +38,9 @@ function HexSetupUtility() {
         var v0 = null, v1 = null;
         for (var j = 0, len = edge.path.nodes.length; j < len; j++) {
             var node = edge.path.nodes[j];
-            console.log(node);
             v0 = v1;
             v1 = new SimpleVector3(node.node.x, node.node.y, node.node.z);
             if (v0 !== null && v1 !== null) {
-                console.log(v0.toString()+"->"+v1.toString());
                 var hexagon = hexTile.getHexagon(v0);
                 if (hexagon !== null) {
                     hexagon.addRoadEdge(MagicRealmMap.getPhysicalGrid().getSharedEdge(v0, v1));
@@ -101,22 +98,24 @@ function HexSetupUtility() {
         for (var j = obj.clearings.length - 1; j >= 0; j--) {
             g.addVertex(new TileClearing(
                     obj.clearings[j].code,                      // clearing name
-                    nextVertexId++,                             // clearing id
+                    nextVertexId,                             // clearing id
                     ClearingEnum[obj.clearings[j].type.code])); // clearing type
             tile.addClearing(nextVertexId++);
         }
         // add edges
         for (var j = obj.edges.length - 1; j >= 0; j--) {
-            g.addEdge(obj.edges[j].clearing_from.number, obj.edges[j].clearing_to.number);
+            g.addEdge(tile.getClearing(obj.edges[j].clearing_from.number),
+                    tile.getClearing(obj.edges[j].clearing_to.number));
         }
         // add secret edges
         for (var j = obj.secret_edges.length - 1; j >= 0; j--) {
-            addSecretEdge(obj.secret_edges[j].clearing_from.number,
-                    obj.secret_edges[j].clearing_to.number);
+            addSecretEdge(tile.getClearing(obj.secret_edges[j].clearing_from.number),
+                    tile.getClearing(obj.secret_edges[j].clearing_to.number));
         }
         // add edges to sides
         for (var j = obj.side_edges.length - 1; j >= 0; j--) {
-            tile.setEdgeToClearing(obj.side_edges[j].side, obj.side_edges[j].clearing_from.number);
+            tile.setEdgeToClearing(obj.side_edges[j].side,
+                    tile.getClearing(obj.side_edges[j].clearing_from.number));
         }
         // load the ascii map
         loadPhysicalMap(tile, obj);
@@ -159,7 +158,7 @@ function HexSetupUtility() {
             var clearing = obj.clearings[j];
             var hexagon = hexTile.getHexagon(clearing.location.x, clearing.location.y,
                     clearing.location.z);
-            hexagon.setClearingId(hexTile.getClearing)
+            hexagon.setClearingId(hexTile.getClearing(clearing.number));
             clearing = null;
             hexagon = null;            
         }

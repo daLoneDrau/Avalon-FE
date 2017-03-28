@@ -75,3 +75,4 @@ function GraphEdge() {
 		return ["[from=", from, ",to=", to, "]"].join("");
     }
 }
+GraphEdge.prototype.constructor = GraphEdge;

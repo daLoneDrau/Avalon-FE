@@ -43,11 +43,9 @@ function TerrainHexagon() {
         var data = loadTerrainArt();
         if (terrain >= TerrainEnum.CLEARING
                 && terrain < TerrainEnum.FOREST) {
-        	console.log(this.getVector().toString());
-        	console.log("clearing::"+clearing);
+        	var clearing = MagicRealmMap.getClearing(clearingId);
             switch (clearing.getType()) {
 	            case ClearingEnum.CLEARING_TYPE_CAVE:
-	                //data = this.getANSICaveClearing(data, clearing);
 	                data = this.getANSICaveClearing(data, clearing);
 	                break;
 	            default:
@@ -122,45 +120,22 @@ function TerrainHexagon() {
         var data = text;
         var sb = [];
         // remove box on top
-        data = data.replace("__\\|__", "  |  ");
-        data = data.replace("_____", "     ");
+        data = data.replace("__\\|__", "&nbsp;&nbsp;|&nbsp;&nbsp;");
+        data = data.replace("_____", "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
         
-        sb.push(TerrainHexagon.GOLDENROD_ON_BLACK);
-	    sb.push("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
-	    sb.push("</span>\n");
-
-        sb.push(TerrainHexagon.GOLDENROD_ON_BLACK);
-        sb.push('&nbsp;&nbsp;');
-	    sb.push("</span>");
         sb.push(TerrainHexagon.BLACK_ON_GOLDENROD);
-        sb.push('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;');
+	    sb.push("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
 	    sb.push("</span>");
-        sb.push(TerrainHexagon.GOLDENROD_ON_BLACK);
-        sb.push('&nbsp;&nbsp;');
-	    sb.push("</span>\n");
-
-        sb.push(TerrainHexagon.GOLDENROD_ON_BLACK);
-        sb.push('&nbsp;&nbsp;');
-	    sb.push("</span>");
+        data = data.replace(/xxxxx/g, sb.join(""));
+        
+        sb = [];
         sb.push(TerrainHexagon.BLACK_ON_GOLDENROD);
-        sb.push('&nbsp;');
+        sb.push("&nbsp;");
         sb.push(clearing.getName());
-        sb.push('&nbsp;');
-	    sb.push("</span>");
-        sb.push(TerrainHexagon.GOLDENROD_ON_BLACK);
-        sb.push('&nbsp;&nbsp;');
-	    sb.push("</span>\n");
-
-        sb.push(TerrainHexagon.GOLDENROD_ON_BLACK);
-        sb.push('&nbsp;');
-	    sb.push("</span>");
-        sb.push(TerrainHexagon.BLACK_ON_GOLDENROD);
-        sb.push('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;');
-	    sb.push("</span>");
-        sb.push(TerrainHexagon.GOLDENROD_ON_BLACK);
-        sb.push('&nbsp;');
-	    sb.push("</span>\n");
-        return sb.join("");
+        sb.push("&nbsp;");
+        sb.push("</span>");
+        data = data.replace(/xx&nbsp;xx/, sb.join(""));
+        return data;
     }
     /**
      * Gets clean ANSI art for a woods/mountain clearing.
@@ -275,12 +250,84 @@ function TerrainHexagon() {
             sb.push("ROAD");
             for (var i = 0, len = TerrainEnum.NUM_SIDES; i < len; i++) {
                 if ((terrain & 1 << i) == 1 << i) {
-                    sb.append('_');
-                    sb.append(i);
+                    sb.push('_');
+                    sb.push(i);
                 }
             }
+            if (sb.join("") === "terrain_ROAD_0_3") {
+                sb = [];
+                sb.push(TerrainHexagon.GOLDENROD_ON_BLACK);
+                sb.push("&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;");
+                sb.push("</span>\n");
+                sb.push(TerrainHexagon.GOLDENROD_ON_BLACK);
+                sb.push("&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;");
+                sb.push("</span>\n");
+                sb.push(TerrainHexagon.GOLDENROD_ON_BLACK);
+                sb.push("&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;");
+                sb.push("</span>\n");
+                sb.push(TerrainHexagon.GOLDENROD_ON_BLACK);
+                sb.push("&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;");
+                sb.push("</span>\n");
+            } else if (sb.join("") === "terrain_ROAD_0_4") {
+                sb = [];
+                sb.push(TerrainHexagon.GOLDENROD_ON_BLACK);
+                sb.push("&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;");
+                sb.push("</span>\n");
+                sb.push(TerrainHexagon.GOLDENROD_ON_BLACK);
+                sb.push("&nbsp;&nbsp;__|&nbsp;&nbsp;&nbsp;&nbsp;");
+                sb.push("</span>\n");
+                sb.push(TerrainHexagon.GOLDENROD_ON_BLACK);
+                sb.push("&nbsp;/&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;");
+                sb.push("</span>\n");
+                sb.push(TerrainHexagon.GOLDENROD_ON_BLACK);
+                sb.push("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
+                sb.push("</span>\n");
+            } else if (sb.join("") === "terrain_ROAD_2_4") {
+                sb = [];
+                sb.push(TerrainHexagon.GOLDENROD_ON_BLACK);
+                sb.push("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
+                sb.push("</span>\n");
+                sb.push(TerrainHexagon.GOLDENROD_ON_BLACK);
+                sb.push("&nbsp;&nbsp;______&nbsp;");
+                sb.push("</span>\n");
+                sb.push(TerrainHexagon.GOLDENROD_ON_BLACK);
+                sb.push("&nbsp;/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\\&nbsp;");
+                sb.push("</span>\n");
+                sb.push(TerrainHexagon.GOLDENROD_ON_BLACK);
+                sb.push("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
+                sb.push("</span>\n");
+            } else if (sb.join("") === "terrain_ROAD_1_4") {
+                sb = [];
+                sb.push(TerrainHexagon.GOLDENROD_ON_BLACK);
+                sb.push("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
+                sb.push("</span>\n");
+                sb.push(TerrainHexagon.GOLDENROD_ON_BLACK);
+                sb.push("&nbsp;&nbsp;______/");
+                sb.push("</span>\n");
+                sb.push(TerrainHexagon.GOLDENROD_ON_BLACK);
+                sb.push("&nbsp;/&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;");
+                sb.push("</span>\n");
+                sb.push(TerrainHexagon.GOLDENROD_ON_BLACK);
+                sb.push("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
+                sb.push("</span>\n");
+            } else if (sb.join("") === "terrain_ROAD_3_5") {
+                sb = [];
+                sb.push(TerrainHexagon.GOLDENROD_ON_BLACK);
+                sb.push("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
+                sb.push("</span>\n");
+                sb.push(TerrainHexagon.GOLDENROD_ON_BLACK);
+                sb.push("&nbsp;\\__&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
+                sb.push("</span>\n");
+                sb.push(TerrainHexagon.GOLDENROD_ON_BLACK);
+                sb.push("&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;");
+                sb.push("</span>\n");
+                sb.push(TerrainHexagon.GOLDENROD_ON_BLACK);
+                sb.push("&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;");
+                sb.push("</span>\n");
+            } else {
+                console.log(sb.join(""));
+            }
         } else if (terrain == TerrainEnum.CLEARING) {
-            sb.push("CLEARING");
             sb = [];
             sb.push("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\n");
             sb.push("&nbsp;&nbsp;xxxxx&nbsp;&nbsp;\n");
@@ -291,12 +338,35 @@ function TerrainHexagon() {
             sb.push("CLEARING_ROAD");
             for (var i = 0, len = TerrainEnum.NUM_SIDES; i < len; i++) {
                 if ((terrain & 1 << i) == 1 << i) {
-                    sb.append('_');
-                    sb.append(i);
+                    sb.push('_');
+                    sb.push(i);
                 }
             }
+            if (sb.join("") === "terrain_CLEARING_ROAD_3") {
+                sb = [];
+                sb.push("&nbsp;_____&nbsp;\n");
+                sb.push("&nbsp;&nbsp;xxxxx&nbsp;&nbsp;\n");
+                sb.push("&nbsp;&nbsp;xx&nbsp;xx&nbsp;&nbsp;\n");
+                sb.push("&nbsp;xxxxx&nbsp;\n");
+            } else if (sb.join("") === "terrain_CLEARING_ROAD_2_3_4") {
+                sb = [];
+                sb.push(TerrainHexagon.GOLDENROD_ON_BLACK);
+                sb.push("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
+                sb.push("</span>\n");
+                sb.push("&nbsp;&nbsp;xxxxx&nbsp;&nbsp;\n");
+                sb.push("&nbsp;");
+                sb.push(TerrainHexagon.GOLDENROD_ON_BLACK);
+                sb.push("_");
+                sb.push("</span>");
+                sb.push("xx&nbsp;xx");
+                sb.push(TerrainHexagon.GOLDENROD_ON_BLACK);
+                sb.push("__");
+                sb.push("</span>\n");
+                sb.push("&nbsp;xxxxx&nbsp;\n");
+            } else {
+                console.log(sb.join(""));
+            }
         }
-        console.log(sb.join(""));
         return sb.join("");
     }
     this.rotate = function() {

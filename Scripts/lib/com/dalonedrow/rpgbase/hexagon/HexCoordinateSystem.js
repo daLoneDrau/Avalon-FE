@@ -311,6 +311,8 @@ function HexCoordinateSystem(config) {
                 var v3 = this.getCubeCoordinates(col, row);
                 var hex = this.getHexagon(v3);
                 if (hex !== null) {
+                    console.log("hex is not null "+v3.toString());
+                    console.log(hex);
                 	var split = hex.getCubeCoordinatesArt().split("\n");
                     if (hex instanceof TerrainHexagon) {
                         split = hex.getAsciiArt().split("\n");
@@ -574,7 +576,6 @@ function HexCoordinateSystem(config) {
     this.moveCompoundHexagonToSide = function(compoundHexagon, v3, side) {
         // find current location
         var current = this.getHexagon(v3);
-        console.log("found hex " + current.getName() + " at " + v3);
         for (var i = current.getNumberOfHexes() - 1; i >= 0; i--) {
             var v = new SimpleVector3(current.getHexagon(i).getVector());
             v.increment(HexCoordinateSystem.COMPOUND_NEIGHBORS[side]);

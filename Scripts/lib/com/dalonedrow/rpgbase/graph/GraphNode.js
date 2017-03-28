@@ -67,3 +67,4 @@ function GraphNode() {
         name = val;
     }
 }
+GraphNode.prototype.constructor = GraphNode;

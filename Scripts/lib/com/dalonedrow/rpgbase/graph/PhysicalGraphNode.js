@@ -70,3 +70,5 @@ function PhysicalGraphNode() {
         }
     }
 }
+PhysicalGraphNode.prototype = Object.create(GraphNode.prototype);
+PhysicalGraphNode.prototype.constructor = PhysicalGraphNode;

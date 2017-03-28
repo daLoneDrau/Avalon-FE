@@ -31,7 +31,6 @@ angular.module('restApp').controller('TileController', function($scope, $window,
         promise.then(function(response) {
             if (response.status === 200) {
                 $scope.entities = [];
-                var physicalGrid = new HexCoordinateSystem(HexCoordinateSystem.EVEN_Q);
                 var nextWorldId = 0, nextPhysicalId = 0, nextVertexId = 0;
                 for (var i = response.data.length - 1; i >= 0; i--) {
                 	var obj = response.data[i];
@@ -131,13 +130,18 @@ angular.module('restApp').controller('TileController', function($scope, $window,
                     var pristine = new MagicRealmGraph(0);
                     var util = new HexSetupUtility();
                     var tile = util.loadHexTile(obj, pristine);
+                    // load tile into graph
+                    MagicRealmMap.setGraph(pristine);
+                    for (var rt = tile.getNumberOfHexes() - 1; rt >= 0; rt--) {
+                        MagicRealmMap.getPhysicalGrid().addHexagon(tile.getHexagon(rt));
+                    }
                     $scope.entities.push(tile);
                     obj = null;
                 }
                 console.log($scope.entities);
-                $scope.tile_markup = $sce.trustAsHtml(physicalGrid.printView(
+                $scope.tile_markup = $sce.trustAsHtml(MagicRealmMap.getPhysicalGrid().printView(
                 		$scope.entities[0].getCenterHexagon()).replace(/\n/g,"<br>"));
-                console.log(physicalGrid.printView($scope.entities[0].getCenterHexagon()));
+                console.log(MagicRealmMap.getPhysicalGrid().printView($scope.entities[0].getCenterHexagon()));
             }
         });
     };

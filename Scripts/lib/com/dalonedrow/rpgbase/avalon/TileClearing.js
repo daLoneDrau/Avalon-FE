@@ -49,3 +49,5 @@ function TileClearing() {
         return sb.join("");
     }
 }
+TileClearing.prototype = Object.create(GraphNode.prototype);
+TileClearing.prototype.constructor = TileClearing;
