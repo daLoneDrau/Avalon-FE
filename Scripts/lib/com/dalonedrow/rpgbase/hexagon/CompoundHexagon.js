@@ -114,3 +114,5 @@ function CompoundHexagon() {
         }
     }
 }
+CompoundHexagon.prototype = Object.create(Hexagon.prototype);
+CompoundHexagon.prototype.constructor = CompoundHexagon;

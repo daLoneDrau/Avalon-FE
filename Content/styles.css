@@ -60,26 +60,30 @@ body {
     line-height: 1;
 }
 .lawn_green_on_black {
-	background-color: #000;
+	background-color: #1c1c1c;
 	color: LawnGreen;
 }
 .forest_green_on_black {
-	background-color: #000;
+	background-color: #1c1c1c;
 	color: ForestGreen;
 }
 .chocolate_on_black {
-	background-color: #000;
+	background-color: #1c1c1c;
 	color: #7B3F00;
 }
 .black_on_goldenrod {
 	background-color: Goldenrod;
-	color: #000;
+	color: #1c1c1c;
 }
 .goldenrod_on_black {
-	background-color: #000;
+	background-color: #1c1c1c;
 	color: Goldenrod;
 }
 .white_on_black {
-	background-color: #000;
+	background-color: #1c1c1c;
+	color: white;
+}
+.white_on_blackest {
+	background-color: black;
 	color: white;
 }

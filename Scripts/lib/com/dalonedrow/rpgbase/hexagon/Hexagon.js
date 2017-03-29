@@ -298,3 +298,4 @@ function Hexagon() {
         return id;
     }
 }
+Hexagon.prototype.constructor = Hexagon;

@@ -311,8 +311,6 @@ function HexCoordinateSystem(config) {
                 var v3 = this.getCubeCoordinates(col, row);
                 var hex = this.getHexagon(v3);
                 if (hex !== null) {
-                    console.log("hex is not null "+v3.toString());
-                    console.log(hex);
                 	var split = hex.getCubeCoordinatesArt().split("\n");
                     if (hex instanceof TerrainHexagon) {
                         split = hex.getAsciiArt().split("\n");

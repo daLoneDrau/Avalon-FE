@@ -11,7 +11,7 @@ angular.module('restApp').run(function($templateCache) {
 		    <!-- -------------------- --> \
     		<div class="col-sm-12"> \
 		        <div class="form-group"> <!-- Select Entity --> \
-			        <label for="selEntity" class="control-label col-sm-4">Choose:</label> \
+			        <label for="selEntity" class="control-label col-sm-4">Select a character to view:</label> \
 					<div class="col-sm-8"> \
 			        	<select class="form-control" name="selEntity" id="selEntity" ng-model="entitySelect" ng-options="entity as entity.name | uppercase for entity in entities track by entity.id"> \
 			            	<option value="">---Please select---</option> <!-- not selected / blank option --> \

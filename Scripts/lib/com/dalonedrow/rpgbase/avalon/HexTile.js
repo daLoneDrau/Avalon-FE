@@ -179,6 +179,7 @@ function HexTile() {
         }
         return found;
     }
+    var oldRotate = this.rotate;
     /**
      * Rotates the hex.
      * @throws Exception
@@ -190,7 +191,7 @@ function HexTile() {
             sides[i] = sides[i - 1];
         }
         sides[0] = savedVal;
-        Object.getPrototypeOf(CompoundHexagon.prototype).rotate(this);
+        oldRotate.call(this);
     }
     this.setEdgeToClearing = function(side, clearing) {
         if (parseInt(side) !== parseInt(side)
@@ -200,3 +201,5 @@ function HexTile() {
         sides[side] = clearing;
     }
 }
+HexTile.prototype = Object.create(CompoundHexagon.prototype);
+HexTile.prototype.constructor = HexTile;
